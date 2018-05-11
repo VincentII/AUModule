@@ -227,6 +227,8 @@ namespace AUModule
             Vector3D restRightEyeBrowInner =    new Vector3D(_restRow[82], _restRow[83], _restRow[84]);
             Vector3D restRightEyeInner =        new Vector3D(_restRow[85], _restRow[86], _restRow[87]);
             Vector3D restRightEyeOuterCorner =   new Vector3D(_restRow[103], _restRow[104], _restRow[105]);
+            Vector3D restMouthUpperlipMidbottom = new Vector3D(_restRow[94], _restRow[95], _restRow[96]);
+            Vector3D restMouthLowerlipMidtop = new Vector3D(_restRow[13], _restRow[14], _restRow[15]);
 
 
 
@@ -357,20 +359,24 @@ namespace AUModule
                 _numAU.Add("AU27");
                 List<double> au27 = new List<double>();
 
+                double restDistance = Distance3D(restMouthUpperlipMidbottom, restMouthLowerlipMidtop);
+
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
                     List<double> currRow = _rowsCSV[i];
                     
                     Vector3D MouthUpperlipMidbottom = new Vector3D(currRow[94 - 4], currRow[95 - 4], currRow[96 - 4]);
-                    Vector3D MouthLowerlipMidtop = new Vector3D(currRow[24 - 4], currRow[25 - 4], currRow[26 - 4]);
+                    Vector3D MouthLowerlipMidtop = new Vector3D(currRow[13 - 4], currRow[14 - 4], currRow[15 - 4]);
 
                     double MouthStretchDistance = Distance3D(MouthUpperlipMidbottom, MouthLowerlipMidtop);
 
-                    //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
+                    Console.WriteLine(i+": "+MouthStretchDistance);
 
-                    au27.Add(MouthStretchDistance < 0 ? -MouthStretchDistance : 0);
+                    double output = Math.Abs(restDistance - MouthStretchDistance);
 
-                    //Console.WriteLine(output);
+                    au27.Add(output < 0 ? -output : 0);
+
+                    Console.WriteLine(output);
 
                 }
 
