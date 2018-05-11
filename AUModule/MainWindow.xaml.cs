@@ -370,13 +370,13 @@ namespace AUModule
 
                     double MouthStretchDistance = Distance3D(MouthUpperlipMidbottom, MouthLowerlipMidtop);
 
-                    Console.WriteLine(i+": "+MouthStretchDistance);
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
 
                     double output = Math.Abs(restDistance - MouthStretchDistance);
 
-                    au27.Add(output < 0 ? -output : 0);
+                    au27.Add(output);
 
-                    Console.WriteLine(output);
+                    //Console.WriteLine(output);
 
                 }
 
@@ -385,13 +385,9 @@ namespace AUModule
             }
 
 
-            Console.WriteLine(_nameAU.Count + " LOL " + _AUs.Count);
-
-            for (int i = 0; i < _AUs[0].Count; i++)
-            {
-                Console.WriteLine(_AUs[0][i] + " " + _AUs[1][i]);
-            }
-
+            /**
+            Console.WriteLine(_nameAU.Count + " LOL " + _AUs.Count)
+            */
 
         }
 
