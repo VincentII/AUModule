@@ -262,7 +262,18 @@ namespace AUModule
             }
 
             /*
-             *  AU4 Brow :owerer
+             * AU2 Outer Brow Raiser //VICNENT yes vicnent
+             */
+            {
+                _nameAU.Add("outerBrowRiser");
+                _numAU.Add("AU2");
+                List<double> au2 = new List<double>();
+                _AUs.Add(au2);
+
+            }
+
+            /*
+             *  AU4 Brow Lowerer
              */
             {
                 _nameAU.Add("BrowLowerer");
