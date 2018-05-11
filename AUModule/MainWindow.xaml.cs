@@ -311,9 +311,19 @@ namespace AUModule
 
             }
 
-            
+            /*
+             * AU27 Mouth Stretch //Ralph
+             */
+            {
+                _nameAU.Add("MouthStretch");
+                _numAU.Add("AU27");
+                List<double> au27 = new List<double>();
+                _AUs.Add(au27);
 
-            for(int i = 0; i < _AUs[0].Count; i++)
+            }
+
+
+            for (int i = 0; i < _AUs[0].Count; i++)
             {
                 Console.WriteLine(_AUs[0][i] + " " + _AUs[1][i]);
             }
