@@ -141,7 +141,10 @@ namespace AUModule
 
                 List<double> auRow = new List<double>();
                 for (int i = 0; i < _nameAU.Count; i++) {
-                    auRow.Add(_AUs[i][rowIndex]);
+                    if (rowIndex < _AUs[i].Count)
+                        auRow.Add(_AUs[i][rowIndex]);
+                    else
+                        auRow.Add(-99999);
                 
                 }
                     
@@ -201,8 +204,8 @@ namespace AUModule
             _nameAU = new List<string>();
             _numAU = new List<string>();
             _AUs = new List<List<double>>();
-            
-            
+
+
             //LeftEyeInner = 43 44 45
             //LeftEyebrowInner = 52 53 54
             //RightEyebrowInner = 82 83 84
@@ -214,10 +217,15 @@ namespace AUModule
             /*
              * Initialize rest points
              */
+            Vector3D restLeftEyeBrowOuter =     new Vector3D(_restRow[34], _restRow[35], _restRow[36]);
             Vector3D restLeftEyeInner =         new Vector3D(_restRow[43], _restRow[44], _restRow[45]);
             Vector3D restLeftEyeBrowInner =     new Vector3D(_restRow[52], _restRow[53], _restRow[54]);
+            Vector3D restLeftEyeOuterCorner =   new Vector3D(_restRow[61], _restRow[62], _restRow[63]);
+            Vector3D restRightEyeBrowOuter =    new Vector3D(_restRow[73], _restRow[74], _restRow[75]);
             Vector3D restRightEyeBrowInner =    new Vector3D(_restRow[82], _restRow[83], _restRow[84]);
-            Vector3D restRightEyeInner =           new Vector3D(_restRow[85], _restRow[86], _restRow[87]);
+            Vector3D restRightEyeInner =        new Vector3D(_restRow[85], _restRow[86], _restRow[87]);
+            Vector3D restRightEyeOuterCorner =   new Vector3D(_restRow[103], _restRow[104], _restRow[105]);
+
 
 
 
@@ -268,7 +276,35 @@ namespace AUModule
                 _nameAU.Add("outerBrowRiser");
                 _numAU.Add("AU2");
                 List<double> au2 = new List<double>();
+
+                double restLeftDistance = Distance3D(restLeftEyeOuterCorner, restLeftEyeBrowOuter);
+                double restRightDistance = Distance3D(restRightEyeOuterCorner, restRightEyeBrowOuter);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D LeftEyeOuterCorner = new Vector3D(currRow[61 - 4], currRow[62 - 4], currRow[63 - 4]);
+                    Vector3D LeftEyeBrowOuter = new Vector3D(currRow[34 - 4], currRow[35 - 4], currRow[36 - 4]);
+                    Vector3D RightEyeBrowOuter = new Vector3D(currRow[73 - 4], currRow[74 - 4], currRow[75 - 4]);
+                    Vector3D RightEyeOuterCorner = new Vector3D(currRow[103 - 4], currRow[104 - 4], currRow[105 - 4]);
+
+                    double LeftDistance = Distance3D(LeftEyeOuterCorner, LeftEyeBrowOuter);
+                    double RightDistance = Distance3D(RightEyeOuterCorner, RightEyeBrowOuter);
+
+                    double output = ((LeftDistance - restLeftDistance) + (RightDistance - restRightDistance)) / 2;
+
+
+
+                    au2.Add(output > 0 ? output : 0);
+
+
+
+                }
+
                 _AUs.Add(au2);
+
+
 
             }
 
@@ -322,6 +358,8 @@ namespace AUModule
 
             }
 
+
+            Console.WriteLine(_nameAU.Count + " LOL " + _AUs.Count);
 
             for (int i = 0; i < _AUs[0].Count; i++)
             {
