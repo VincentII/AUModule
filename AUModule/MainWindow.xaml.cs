@@ -201,12 +201,14 @@ namespace AUModule
             _nameAU = new List<string>();
             _numAU = new List<string>();
             _AUs = new List<List<double>>();
-            
-            
+
+
             //LeftEyeInner = 43 44 45
             //LeftEyebrowInner = 52 53 54
             //RightEyebrowInner = 82 83 84
             //RightEyeInner = 85 86 87
+            //MouthUpperlipMidbottom = 94 95 96
+            //MouthLowerlipMidtop = 13 14 15
 
 
 
@@ -318,6 +320,24 @@ namespace AUModule
                 _nameAU.Add("MouthStretch");
                 _numAU.Add("AU27");
                 List<double> au27 = new List<double>();
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+                    
+                    Vector3D MouthUpperlipMidbottom = new Vector3D(currRow[94 - 4], currRow[95 - 4], currRow[96 - 4]);
+                    Vector3D MouthLowerlipMidtop = new Vector3D(currRow[24 - 4], currRow[25 - 4], currRow[26 - 4]);
+
+                    double MouthStretchDistance = Distance3D(MouthUpperlipMidbottom, MouthLowerlipMidtop);
+
+                    //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
+
+                    au27.Add(MouthStretchDistance < 0 ? -MouthStretchDistance : 0);
+
+                    //Console.WriteLine(output);
+
+                }
+
                 _AUs.Add(au27);
 
             }
