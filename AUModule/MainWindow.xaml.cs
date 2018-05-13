@@ -212,7 +212,8 @@ namespace AUModule
             //RightEyeInner = 85 86 87
             //MouthUpperlipMidbottom = 94 95 96
             //MouthLowerlipMidtop = 13 14 15
-
+            //LeftEyeMidTop = 49 50 51
+            //RightEyeMidTop = 70 71 72
 
 
 
@@ -229,7 +230,8 @@ namespace AUModule
             Vector3D restRightEyeOuterCorner =   new Vector3D(_restRow[103], _restRow[104], _restRow[105]);
             Vector3D restMouthUpperlipMidbottom = new Vector3D(_restRow[94], _restRow[95], _restRow[96]);
             Vector3D restMouthLowerlipMidtop = new Vector3D(_restRow[13], _restRow[14], _restRow[15]);
-
+            Vector3D restLeftEyeMidTop = new Vector3D(_restRow[49], _restRow[50], _restRow[51]);
+            Vector3D restRightEyeMidTop = new Vector3D(_restRow[70], _restRow[71], _restRow[72]);
 
 
 
@@ -382,6 +384,40 @@ namespace AUModule
 
                 _AUs.Add(au27);
 
+            }
+
+            /*
+             * AU5 Upper Lid Raiser //Ralph
+             */
+            {
+                /*
+                _nameAU.Add("MouthStretch");
+                _numAU.Add("AU27");
+                List<double> au27 = new List<double>();
+
+                double restDistance = Distance3D(restMouthUpperlipMidbottom, restMouthLowerlipMidtop);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D MouthUpperlipMidbottom = new Vector3D(currRow[94 - 4], currRow[95 - 4], currRow[96 - 4]);
+                    Vector3D MouthLowerlipMidtop = new Vector3D(currRow[13 - 4], currRow[14 - 4], currRow[15 - 4]);
+
+                    double MouthStretchDistance = Distance3D(MouthUpperlipMidbottom, MouthLowerlipMidtop);
+
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
+
+                    double output = Math.Abs(restDistance - MouthStretchDistance);
+
+                    au27.Add(output);
+
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au27);
+                */
             }
 
 
