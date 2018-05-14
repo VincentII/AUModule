@@ -453,11 +453,11 @@ namespace AUModule
                     double LeftDistance = Distance3D(LeftEyeMidTop, LeftEyeMidBottom);
                     double RightDistance = Distance3D(RightEyeMidTop, RightEyeMidBottom);
 
-                    double output = ((LeftDistance - restLeftDistance) + (RightDistance - restRightDistance)) / 2;
+                    double output = (((restLeftDistance - LeftDistance) > 0 ? (restLeftDistance - LeftDistance) : 0 )+ ((restRightDistance - RightDistance) >0 ? (restRightDistance - RightDistance) : 0)) / 2;
 
                     //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
 
-                    au44.Add(output > 0 ? output : 0);
+                    au44.Add(output);
                 }
 
                 _AUs.Add(au44);
