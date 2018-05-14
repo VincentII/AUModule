@@ -397,10 +397,21 @@ namespace AUModule
             }
 
             /*
-             * AU27 Mouth Stretch //Ralph
+             * AU17 Mouth Stretch //Vincet
              */
             {
-                _nameAU.Add("MouthStretch");
+                _nameAU.Add("Chin Raiser");
+                _numAU.Add("AU17");
+                List<double> au17 = new List<double>();
+                _AUs.Add(au17);
+            }
+
+
+                /*
+                 * AU27 Mouth Stretch //Ralph
+                 */
+                {
+                    _nameAU.Add("MouthStretch");
                 _numAU.Add("AU27");
                 List<double> au27 = new List<double>();
 
