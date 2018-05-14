@@ -384,12 +384,22 @@ namespace AUModule
 
             }
 
+            /*
+             * AU41-44 Eyes Closed //Ralph
+             */
+            {
+                _nameAU.Add("EyesClosed");
+                _numAU.Add("AU41-44");
+                List<double> au44 = new List<double>();
 
-            /**
-            Console.WriteLine(_nameAU.Count + " LOL " + _AUs.Count)
-            */
+                _AUs.Add(au44);
+            }
 
-        }
+                /**
+                Console.WriteLine(_nameAU.Count + " LOL " + _AUs.Count)
+                */
+
+            }
 
         private double Distance3D(Vector3D A,Vector3D B)
         {
