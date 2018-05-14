@@ -222,20 +222,29 @@ namespace AUModule
             /*
              * Initialize rest points
              */
+
+            Vector3D restChinCenter = new Vector3D(_restRow[7], _restRow[8], _restRow[9]);
+            Vector3D restMouthLowerMidBottom = new Vector3D(_restRow[10], _restRow[11], _restRow[12]);
+            Vector3D restMouthLowerlipMidtop = new Vector3D(_restRow[13], _restRow[14], _restRow[15]);
             Vector3D restLeftEyeBrowOuter = new Vector3D(_restRow[34], _restRow[35], _restRow[36]);
             Vector3D restLeftEyeInner = new Vector3D(_restRow[43], _restRow[44], _restRow[45]);
+            Vector3D restLeftEyeMidTop = new Vector3D(_restRow[49], _restRow[50], _restRow[51]);
             Vector3D restLeftEyeBrowInner = new Vector3D(_restRow[52], _restRow[53], _restRow[54]);
             Vector3D restLeftEyeOuterCorner = new Vector3D(_restRow[61], _restRow[62], _restRow[63]);
+            Vector3D restRightEyeMidTop = new Vector3D(_restRow[70], _restRow[71], _restRow[72]);
             Vector3D restRightEyeBrowOuter = new Vector3D(_restRow[73], _restRow[74], _restRow[75]);
             Vector3D restRightEyeBrowInner = new Vector3D(_restRow[82], _restRow[83], _restRow[84]);
             Vector3D restRightEyeInner = new Vector3D(_restRow[85], _restRow[86], _restRow[87]);
-            Vector3D restRightEyeOuterCorner = new Vector3D(_restRow[103], _restRow[104], _restRow[105]);
             Vector3D restMouthUpperlipMidbottom = new Vector3D(_restRow[94], _restRow[95], _restRow[96]);
-            Vector3D restMouthLowerlipMidtop = new Vector3D(_restRow[13], _restRow[14], _restRow[15]);
-            Vector3D restLeftEyeMidTop = new Vector3D(_restRow[49], _restRow[50], _restRow[51]);
-            Vector3D restRightEyeMidTop = new Vector3D(_restRow[70], _restRow[71], _restRow[72]);
             Vector3D restLeftEyeMidBottom = new Vector3D(_restRow[97], _restRow[98], _restRow[99]);
             Vector3D restRightEyeMidBottom = new Vector3D(_restRow[100], _restRow[101], _restRow[102]);
+            Vector3D restRightEyeOuterCorner = new Vector3D(_restRow[103], _restRow[104], _restRow[105]);
+            
+
+
+            
+            
+            
 
 
             /*
@@ -397,12 +406,36 @@ namespace AUModule
             }
 
             /*
-             * AU17 Mouth Stretch //Vincet
+             * AU17 Chin Raiser //Vincet
              */
             {
                 _nameAU.Add("Chin Raiser");
                 _numAU.Add("AU17");
                 List<double> au17 = new List<double>();
+
+                double restDistance = Distance3D(restChinCenter, restMouthLowerMidBottom);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D chinCenter = new Vector3D(currRow[7 - 4], currRow[8 - 4], currRow[9 - 4]);
+                    Vector3D MouthLowerMidBottom = new Vector3D(currRow[10 - 4], currRow[11 - 4], currRow[12 - 4]);
+
+                    double auDistance = Distance3D(chinCenter, MouthLowerMidBottom);
+
+                    double output = restDistance - auDistance;
+
+                    //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
+
+                    au5.Add(output > 0 ? output : 0);
+                    //au5.Add(output);
+
+                    //Console.WriteLine(output);
+
+                }
+
+
                 _AUs.Add(au17);
             }
 
