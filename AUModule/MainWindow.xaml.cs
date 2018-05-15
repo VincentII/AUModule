@@ -226,8 +226,9 @@ namespace AUModule
              */
 
             Vector3D restChinCenter = new Vector3D(_restRow[7], _restRow[8], _restRow[9]);
-            Vector3D restMouthLowerMidBottom = new Vector3D(_restRow[10], _restRow[11], _restRow[12]);
-            Vector3D restMouthLowerlipMidtop = new Vector3D(_restRow[13], _restRow[14], _restRow[15]);
+            Vector3D restMouthLowerlipMidBottom = new Vector3D(_restRow[10], _restRow[11], _restRow[12]);
+            Vector3D restMouthLowerlipMidTop = new Vector3D(_restRow[13], _restRow[14], _restRow[15]);
+            Vector3D restMouthUpperlipMidTop = new Vector3D(_restRow[22], _restRow[23], _restRow[24]);
             Vector3D restLeftEyeBrowOuter = new Vector3D(_restRow[34], _restRow[35], _restRow[36]);
             Vector3D restLeftEyeInner = new Vector3D(_restRow[43], _restRow[44], _restRow[45]);
             Vector3D restLeftEyeMidTop = new Vector3D(_restRow[49], _restRow[50], _restRow[51]);
@@ -237,7 +238,7 @@ namespace AUModule
             Vector3D restRightEyeBrowOuter = new Vector3D(_restRow[73], _restRow[74], _restRow[75]);
             Vector3D restRightEyeBrowInner = new Vector3D(_restRow[82], _restRow[83], _restRow[84]);
             Vector3D restRightEyeInner = new Vector3D(_restRow[85], _restRow[86], _restRow[87]);
-            Vector3D restMouthUpperlipMidbottom = new Vector3D(_restRow[94], _restRow[95], _restRow[96]);
+            Vector3D restMouthUpperlipMidBottom = new Vector3D(_restRow[94], _restRow[95], _restRow[96]);
             Vector3D restLeftEyeMidBottom = new Vector3D(_restRow[97], _restRow[98], _restRow[99]);
             Vector3D restRightEyeMidBottom = new Vector3D(_restRow[100], _restRow[101], _restRow[102]);
             Vector3D restRightEyeOuterCorner = new Vector3D(_restRow[103], _restRow[104], _restRow[105]);
@@ -421,7 +422,7 @@ namespace AUModule
 
                 double avgRestLipCornerHeight = restMouthLeftCorner.Y + restMouthRightCorner.Y / 2;
 
-                double restDistance = restMouthUpperlipMidbottom.Y - avgRestLipCornerHeight ;
+                double restDistance = restMouthUpperlipMidBottom.Y - avgRestLipCornerHeight ;
 
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
@@ -447,9 +448,10 @@ namespace AUModule
 
                 _AUs.Add(au12);
             }
-
+            
+            //TODO
             /*
-            * AU15 Lip Corner Depressor //Ralph
+            * AU15 Lip Corner Depressor //Ralph   I HAVE A PROBLEM HERE
             * MouthLeftCorner = 31 32 33
             * MouthRightCorner = 67 68 69
             */
@@ -461,7 +463,7 @@ namespace AUModule
 
                 double avgRestLipCornerHeight = restMouthLeftCorner.Y + restMouthRightCorner.Y / 2;
 
-                double restDistance = restMouthLowerlipMidtop.Y - avgRestLipCornerHeight;
+                double restDistance = restMouthLowerlipMidTop.Y - avgRestLipCornerHeight;
 
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
@@ -497,7 +499,7 @@ namespace AUModule
                 _numAU.Add("AU17");
                 List<double> au17 = new List<double>();
 
-                double restDistance = Distance3D(restChinCenter, restMouthLowerMidBottom);
+                double restDistance = Distance3D(restChinCenter, restMouthLowerlipMidBottom);
 
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
@@ -523,6 +525,53 @@ namespace AUModule
                 _AUs.Add(au17);
             }
 
+            /*
+             *  AU18 Lip Puckerer
+             *  MouthLeftCorner = 31 32 33
+            *   MouthRightCorner = 67 68 69
+             */
+            {
+                _nameAU.Add("LipPuckerer");
+                _numAU.Add("AU18");
+                List<double> au18 = new List<double>();
+
+                double avgRestZDistance = (restMouthLowerlipMidTop.Z + restMouthLowerlipMidBottom.Z + restMouthUpperlipMidBottom.Z +restMouthUpperlipMidTop.Z)/4;
+                double restMouthDistance = Distance3D(restMouthLeftCorner, restMouthRightCorner);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    
+                    
+                    Vector3D MouthLowerlipMidBottom = new Vector3D(currRow[10 - 4], currRow[11 - 4], currRow[12 - 4]);
+                    Vector3D MouthLowerlipMidTop = new Vector3D(currRow[13 - 4], currRow[14 - 4], currRow[15 - 4]);
+                    Vector3D MouthUpperlipMidTop = new Vector3D(currRow[22 - 4], currRow[23 - 4], currRow[24 - 4]);
+                    Vector3D MouthUpperlipMidBottom = new Vector3D(currRow[94 - 4], currRow[95 - 4], currRow[96 - 4]);
+
+                    Vector3D MouthLeftCorner = new Vector3D(currRow[31 - 4], currRow[32 - 4], currRow[33 - 4]);
+                    Vector3D MouthRightCorner = new Vector3D(currRow[67 - 4], currRow[68 - 4], currRow[69 - 4]);
+
+                    double MouthDistance = Distance3D(MouthLeftCorner, MouthRightCorner);
+
+                    double avgZDistance = (MouthLowerlipMidTop.Z + MouthLowerlipMidBottom.Z + MouthUpperlipMidBottom.Z + MouthUpperlipMidTop.Z) / 4;
+
+                    double outputDistance = (restMouthDistance - MouthDistance) > 0 ? (restMouthDistance - MouthDistance) : 0;
+
+                    double outputAvgZDistance = (avgRestZDistance - avgZDistance) > 0 ? (avgRestZDistance - avgZDistance) : 0;
+
+                    double output = (outputAvgZDistance + outputDistance)/2;
+                    au18.Add(output);
+                    //Console.WriteLine(output);
+
+                }
+
+
+                _AUs.Add(au18);
+
+
+            }
+
 
             /*
                 * AU27 Mouth Stretch //Ralph
@@ -532,11 +581,12 @@ namespace AUModule
                 _numAU.Add("AU27");
                 List<double> au27 = new List<double>();
 
-                double restDistance = Distance3D(restMouthUpperlipMidbottom, restMouthLowerlipMidtop);
+                double restDistance = Distance3D(restMouthUpperlipMidBottom, restMouthLowerlipMidTop);
 
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
                     List<double> currRow = _rowsCSV[i];
+
 
                     Vector3D MouthUpperlipMidbottom = new Vector3D(currRow[94 - 4], currRow[95 - 4], currRow[96 - 4]);
                     Vector3D MouthLowerlipMidtop = new Vector3D(currRow[13 - 4], currRow[14 - 4], currRow[15 - 4]);
