@@ -406,6 +406,42 @@ namespace AUModule
             }
 
             /*
+            * AU15 Lip Corner Depressor //Ralph
+            */
+            {
+                /*
+                _nameAU.Add("Lip Corner Depressor");
+                _numAU.Add("AU15");
+                List<double> au15 = new List<double>();
+
+                double restDistance = Distance3D(restMouthUpperlipMidbottom, restMouthLowerlipMidtop);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D MouthUpperlipMidbottom = new Vector3D(currRow[94 - 4], currRow[95 - 4], currRow[96 - 4]);
+                    Vector3D MouthLowerlipMidtop = new Vector3D(currRow[13 - 4], currRow[14 - 4], currRow[15 - 4]);
+
+                    double MouthStretchDistance = Distance3D(MouthUpperlipMidbottom, MouthLowerlipMidtop);
+
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
+
+                    double output = Math.Abs(restDistance - MouthStretchDistance);
+
+                    au15.Add(output);
+
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au15);
+                */
+
+            }
+
+
+            /*
              * AU17 Chin Raiser //Vincet
              */
             {
@@ -440,11 +476,11 @@ namespace AUModule
             }
 
 
-                /*
-                 * AU27 Mouth Stretch //Ralph
-                 */
-                {
-                    _nameAU.Add("MouthStretch");
+            /*
+                * AU27 Mouth Stretch //Ralph
+                */
+            {
+                _nameAU.Add("MouthStretch");
                 _numAU.Add("AU27");
                 List<double> au27 = new List<double>();
 
