@@ -428,7 +428,7 @@ namespace AUModule
 
                     //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
 
-                    au5.Add(output > 0 ? output : 0);
+                    au17.Add(output > 0 ? output : 0);
                     //au5.Add(output);
 
                     //Console.WriteLine(output);
