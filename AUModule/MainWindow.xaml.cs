@@ -449,6 +449,17 @@ namespace AUModule
             }
             */
 
+
+            /*
+             * AU9 Nose Wrinkler
+             */
+            {
+                _nameAU.Add("Nose Wrinkler");
+                _numAU.Add("AU9");
+                List<double> au9 = new List<double>();
+                _AUs.Add(au9);
+            }
+
             /*
             * AU12 Lip Corner Puller //Ralph
             * MouthLeftCorner = 31 32 33
@@ -673,7 +684,7 @@ namespace AUModule
 
 
                     double output = outputDistance;
-                    au18.Add(output);
+                    au23.Add(output);
                     //Console.WriteLine(output);
 
                 }
