@@ -220,6 +220,8 @@ namespace AUModule
             //MouthRightCorner = 67 68 69
             //LeftCheekBone = 58 59 60
             //RightCheekBone = 64 65 66
+            //NoseBottomLeft = 40 41 42
+            //NoseBottomRight = 79 80 81
 
 
 
@@ -251,6 +253,8 @@ namespace AUModule
             Vector3D restMouthRightCorner = new Vector3D(_restRow[67], _restRow[68], _restRow[69]);
             Vector3D restLeftCheekBone = new Vector3D(_restRow[58], _restRow[59], _restRow[60]);
             Vector3D restRightCheekBone = new Vector3D(_restRow[64], _restRow[65], _restRow[66]);
+            Vector3D restNoseBottomLeft = new Vector3D(_restRow[40], _restRow[41], _restRow[42]);
+            Vector3D restNoseBottomRight = new Vector3D(_restRow[79], _restRow[80], _restRow[81]);
 
 
 
@@ -777,6 +781,45 @@ namespace AUModule
                 _AUs.Add(au27);
 
             }
+
+            /*
+            * AU38 Nostril Dilator //Ralph
+            * 
+            * NoseBottomLeft 40 41 42
+            * NoseBottomRight 79 80 81
+            */
+            /*
+            {
+                _nameAU.Add("Nostril Dilator");
+                _numAU.Add("AU38");
+                List<double> au38 = new List<double>();
+
+                double restNoseWidth = Distance3D(restNoseBottomLeft, restNoseBottomRight);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+
+                    Vector3D NoseBottomLeft = new Vector3D(currRow[40 - 4], currRow[41 - 4], currRow[42 - 4]);
+                    Vector3D NoseBottomRight = new Vector3D(currRow[79 - 4], currRow[80 - 4], currRow[81 - 4]);
+
+                    double NoseWidth = Distance3D(NoseBottomLeft, NoseBottomRight);
+
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
+
+                    double output = NoseWidth - restNoseWidth;
+
+                    au38.Add(output > 0 ? output : 0);
+
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au38);
+
+            }
+            */
 
             /*
              * AU41-44 Eyes Closed //Vincent
