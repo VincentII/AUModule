@@ -232,6 +232,7 @@ namespace AUModule
             Vector3D restChinCenter = new Vector3D(_restRow[7], _restRow[8], _restRow[9]);
             Vector3D restMouthLowerlipMidBottom = new Vector3D(_restRow[10], _restRow[11], _restRow[12]);
             Vector3D restMouthLowerlipMidTop = new Vector3D(_restRow[13], _restRow[14], _restRow[15]);
+            Vector3D restNoseBottom = new Vector3D(_restRow[16], _restRow[17], _restRow[18]);
             Vector3D restMouthUpperlipMidTop = new Vector3D(_restRow[22], _restRow[23], _restRow[24]);
             Vector3D restNoseTop = new Vector3D(_restRow[25], _restRow[26], _restRow[27]);
             Vector3D restLeftEyeBrowOuter = new Vector3D(_restRow[34], _restRow[35], _restRow[36]);
@@ -470,13 +471,13 @@ namespace AUModule
                 {
                     List<double> currRow = _rowsCSV[i];
 
-                    Vector3D noseTop = new Vector3D(currRow[25 - 4], currRow[26 - 4], currRow[27 - 4]);
-                    Vector3D noseTopLeft = new Vector3D(currRow[37 - 4], currRow[38 - 4], currRow[39 - 4]);
-                    Vector3D noseTopRight = new Vector3D(currRow[76 - 4], currRow[77 - 4], currRow[78 - 4]);
+                    Vector3D NoseTop = new Vector3D(currRow[25 - 4], currRow[26 - 4], currRow[27 - 4]);
+                    Vector3D NoseTopLeft = new Vector3D(currRow[37 - 4], currRow[38 - 4], currRow[39 - 4]);
+                    Vector3D NoseTopRight = new Vector3D(currRow[76 - 4], currRow[77 - 4], currRow[78 - 4]);
 
 
-                    double LeftDistance = Distance3D(noseTop, noseTopLeft);
-                    double RightDistance = Distance3D(noseTop, noseTopRight);
+                    double LeftDistance = Distance3D(NoseTop, NoseTopLeft);
+                    double RightDistance = Distance3D(NoseTop, NoseTopRight);
 
                     double output = ((restLeftDistance - LeftDistance) + (restRightDistance - RightDistance)) / 2;
 
@@ -497,11 +498,36 @@ namespace AUModule
              */
 
             {
-                _nameAU.Add("Lower Lip Depressor");
-                _numAU.Add("AU16");
-                List<double> au16 = new List<double>();
+                _nameAU.Add("Upper Lip Raiser");
+                _numAU.Add("AU10");
+                List<double> au10 = new List<double>();
 
-                _AUs.Add(au16);
+
+                double restDistance = Distance3D(restNoseBottom, restMouthUpperlipMidTop);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D NoseBottom = new Vector3D(currRow[16 - 4], currRow[17 - 4], currRow[18 - 4]);
+                    Vector3D MouthUpperLipMidBottom = new Vector3D(currRow[94 - 4], currRow[95 - 4], currRow[96 - 4]);
+
+
+
+                    double distance = Distance3D(NoseBottom,MouthUpperLipMidBottom);
+
+                    double output = restDistance - distance;
+
+                    //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
+
+                    au16.Add(output > 0 ? output : 0);
+
+                    //Console.WriteLine(output);
+
+                }
+
+
+                _AUs.Add(au10);
             }
 
             /*
@@ -554,7 +580,7 @@ namespace AUModule
 
                 _nameAU.Add("Dimpler");
                 _numAU.Add("AU14");
-                List<double> au12 = new List<double>();
+                List<double> au14 = new List<double>();
 
                 double restDistance = Distance3D(restMouthLeftCorner, restMouthRightCorner);
 
@@ -569,12 +595,12 @@ namespace AUModule
 
                     double output = distance - restDistance;
 
-                    au12.Add(output > 0 ? output : 0);
+                    au14.Add(output > 0 ? output : 0);
 
                     //Console.WriteLine(output);
                 }
 
-                _AUs.Add(au12);
+                _AUs.Add(au14);
             }
             
 
@@ -622,17 +648,41 @@ namespace AUModule
 
             /*
              *  AU16 Lower Lip Depressor //Vincent
+             *  TES
              */
             {
                 _nameAU.Add("Lower Lip Depressor");
                 _numAU.Add("AU16");
                 List<double> au16 = new List<double>();
 
+                double restDistance = Distance3D(restChinCenter, restMouthLowerlipMidBottom);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D chinCenter = new Vector3D(currRow[7 - 4], currRow[8 - 4], currRow[9 - 4]);
+                    Vector3D MouthLowerMidBottom = new Vector3D(currRow[10 - 4], currRow[11 - 4], currRow[12 - 4]);
+
+                    double auDistance = Distance3D(chinCenter, MouthLowerMidBottom);
+
+                    double output = restDistance - auDistance;
+
+                    //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
+
+                    au16.Add(output > 0 ? output : 0);
+
+                    //Console.WriteLine(output);
+
+                }
+
+
                 _AUs.Add(au16);
             }
 
             /*
              * AU17 Chin Raiser //Vincet
+             * TEST
              */
             {
                 _nameAU.Add("Chin Raiser");
@@ -650,7 +700,7 @@ namespace AUModule
 
                     double auDistance = Distance3D(chinCenter, MouthLowerMidBottom);
 
-                    double output = restDistance - auDistance;
+                    double output = auDistance - restDistance;
 
                     //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
 
