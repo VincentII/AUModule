@@ -452,7 +452,7 @@ namespace AUModule
 
 
             /*
-             * AU9 Nose Wrinkler TODO Test
+             * AU9 Nose Wrinkler TODO Test //Vincent
              */
             {
                 _nameAU.Add("Nose Wrinkler");
@@ -486,6 +486,18 @@ namespace AUModule
 
 
                 _AUs.Add(au9);
+            }
+
+            /*
+             *  AU10 Upper Lip Raiser //Vincent
+             */
+
+            {
+                _nameAU.Add("Lower Lip Depressor");
+                _numAU.Add("AU16");
+                List<double> au16 = new List<double>();
+
+                _AUs.Add(au16);
             }
 
             /*
@@ -603,6 +615,17 @@ namespace AUModule
                 _AUs.Add(au15);
             }
 
+
+            /*
+             *  AU16 Lower Lip Depressor //Vincent
+             */
+            {
+                _nameAU.Add("Lower Lip Depressor");
+                _numAU.Add("AU16");
+                List<double> au16 = new List<double>();
+
+                _AUs.Add(au16);
+            }
 
             /*
              * AU17 Chin Raiser //Vincet
