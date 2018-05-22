@@ -692,11 +692,11 @@ namespace AUModule
 
 
             /*
-                * AU27 Mouth Stretch //Ralph
+                * AU25 & 27 Mouth Stretch //Ralph
                 */
             {
-                _nameAU.Add("MouthStretch");
-                _numAU.Add("AU27");
+                _nameAU.Add("Lips Part & Mouth Stretch");
+                _numAU.Add("AU25 & 27");
                 List<double> au27 = new List<double>();
 
                 double restDistance = Distance3D(restMouthUpperlipMidBottom, restMouthLowerlipMidTop);
