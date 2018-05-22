@@ -606,6 +606,16 @@ namespace AUModule
 
             }
 
+            /*
+             * AU23 Lip Tightener
+             */
+            {
+                _nameAU.Add("LipTightener");
+                _numAU.Add("AU23");
+                List<double> au23 = new List<double>();
+                _AUs.Add(au23);
+            }
+
 
             /*
                 * AU27 Mouth Stretch //Ralph
