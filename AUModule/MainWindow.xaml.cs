@@ -613,6 +613,31 @@ namespace AUModule
                 _nameAU.Add("LipTightener");
                 _numAU.Add("AU23");
                 List<double> au23 = new List<double>();
+                
+                double restMouthDistance = Distance3D(restMouthLeftCorner, restMouthRightCorner);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+
+
+                    
+                    Vector3D MouthLeftCorner = new Vector3D(currRow[31 - 4], currRow[32 - 4], currRow[33 - 4]);
+                    Vector3D MouthRightCorner = new Vector3D(currRow[67 - 4], currRow[68 - 4], currRow[69 - 4]);
+
+                    double MouthDistance = Distance3D(MouthLeftCorner, MouthRightCorner);
+                    
+
+                    double outputDistance = (restMouthDistance - MouthDistance) > 0 ? (restMouthDistance - MouthDistance) : 0;
+
+
+                    double output = outputDistance;
+                    au18.Add(output);
+                    //Console.WriteLine(output);
+
+                }
+
                 _AUs.Add(au23);
             }
 
