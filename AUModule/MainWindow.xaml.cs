@@ -229,13 +229,16 @@ namespace AUModule
             Vector3D restMouthLowerlipMidBottom = new Vector3D(_restRow[10], _restRow[11], _restRow[12]);
             Vector3D restMouthLowerlipMidTop = new Vector3D(_restRow[13], _restRow[14], _restRow[15]);
             Vector3D restMouthUpperlipMidTop = new Vector3D(_restRow[22], _restRow[23], _restRow[24]);
+            Vector3D restNoseTop = new Vector3D(_restRow[25], _restRow[26], _restRow[27]);
             Vector3D restLeftEyeBrowOuter = new Vector3D(_restRow[34], _restRow[35], _restRow[36]);
+            Vector3D restNoseTopLeft = new Vector3D(_restRow[37], _restRow[38], _restRow[39]);
             Vector3D restLeftEyeInner = new Vector3D(_restRow[43], _restRow[44], _restRow[45]);
             Vector3D restLeftEyeMidTop = new Vector3D(_restRow[49], _restRow[50], _restRow[51]);
             Vector3D restLeftEyeBrowInner = new Vector3D(_restRow[52], _restRow[53], _restRow[54]);
             Vector3D restLeftEyeOuterCorner = new Vector3D(_restRow[61], _restRow[62], _restRow[63]);
             Vector3D restRightEyeMidTop = new Vector3D(_restRow[70], _restRow[71], _restRow[72]);
             Vector3D restRightEyeBrowOuter = new Vector3D(_restRow[73], _restRow[74], _restRow[75]);
+            Vector3D restNoseTopRight = new Vector3D(_restRow[76], _restRow[77], _restRow[78]);
             Vector3D restRightEyeBrowInner = new Vector3D(_restRow[82], _restRow[83], _restRow[84]);
             Vector3D restRightEyeInner = new Vector3D(_restRow[85], _restRow[86], _restRow[87]);
             Vector3D restMouthUpperlipMidBottom = new Vector3D(_restRow[94], _restRow[95], _restRow[96]);
@@ -451,12 +454,39 @@ namespace AUModule
 
 
             /*
-             * AU9 Nose Wrinkler
+             * AU9 Nose Wrinkler TODO Test
              */
             {
                 _nameAU.Add("Nose Wrinkler");
                 _numAU.Add("AU9");
                 List<double> au9 = new List<double>();
+
+                double restLeftDistance = Distance3D(restNoseTop, restNoseTopLeft);
+                double restRightDistance = Distance3D(restNoseTop, restNoseTopRight);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D noseTop = new Vector3D(currRow[25 - 4], currRow[26 - 4], currRow[27 - 4]);
+                    Vector3D noseTopLeft = new Vector3D(currRow[37 - 4], currRow[38 - 4], currRow[39 - 4]);
+                    Vector3D noseTopRight = new Vector3D(currRow[76 - 4], currRow[77 - 4], currRow[78 - 4]);
+
+
+                    double LeftDistance = Distance3D(noseTop, noseTopLeft);
+                    double RightDistance = Distance3D(noseTop, noseTopRight);
+
+                    double output = ((restLeftDistance - LeftDistance) + (restRightDistance - RightDistance)) / 2;
+
+                    //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
+
+                    au9.Add(output > 0 ? output : 0);
+
+                    //Console.WriteLine(output);
+
+                }
+
+
                 _AUs.Add(au9);
             }
 
