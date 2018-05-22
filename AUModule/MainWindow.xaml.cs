@@ -409,6 +409,46 @@ namespace AUModule
                 _AUs.Add(au5);
             }
 
+            /*AU6 Cheek Raiser //Ralph
+            *
+            * 
+            */
+            /*
+            {
+                _nameAU.Add("Upper Lid Raiser");
+                _numAU.Add("AU5");
+                List<double> au5 = new List<double>();
+
+                double restLeftDistance = Distance3D(restLeftEyeMidTop, restLeftEyeMidBottom);
+                double restRightDistance = Distance3D(restRightEyeMidTop, restRightEyeMidBottom);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D LeftEyeMidTop = new Vector3D(currRow[49 - 4], currRow[50 - 4], currRow[51 - 4]);
+                    Vector3D LeftEyeMidBottom = new Vector3D(currRow[97 - 4], currRow[98 - 4], currRow[99 - 4]);
+                    Vector3D RightEyeMidTop = new Vector3D(currRow[70 - 4], currRow[71 - 4], currRow[72 - 4]);
+                    Vector3D RightEyeMidBottom = new Vector3D(currRow[100 - 4], currRow[101 - 4], currRow[102 - 4]);
+
+                    double LeftDistance = Distance3D(LeftEyeMidTop, LeftEyeMidBottom);
+                    double RightDistance = Distance3D(RightEyeMidTop, RightEyeMidBottom);
+
+                    double output = ((LeftDistance - restLeftDistance) + (RightDistance - restRightDistance)) / 2;
+
+                    //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
+
+                    au5.Add(output > 0 ? output : 0);
+                    //au5.Add(output);
+
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au5);
+            }
+            */
+
             /*
             * AU12 Lip Corner Puller //Ralph
             * MouthLeftCorner = 31 32 33
