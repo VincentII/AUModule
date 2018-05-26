@@ -842,6 +842,17 @@ namespace AUModule
 
             }
 
+
+            /*
+                * AU26 JawDrop //Ralph
+                */
+            {
+                _nameAU.Add("JawDrop");
+                _numAU.Add("AU26");
+                List<double> au26 = new List<double>();
+                _AUs.Add(au26);
+            }
+
             /*
             * AU38 Nostril Dilator //Ralph
             * 
