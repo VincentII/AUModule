@@ -582,11 +582,51 @@ namespace AUModule
             }
 
             /*
+            * AU13 Cheek Puffer //Ralph
+            *
+            */
+            /*
+            {
+
+                _nameAU.Add("Cheek Puffer");
+                _numAU.Add("AU13");
+                List<double> au13 = new List<double>();
+
+                double avgRestLipCornerHeight = restMouthLeftCorner.Y + restMouthRightCorner.Y / 2;
+
+                double restDistance = restMouthUpperlipMidBottom.Y - avgRestLipCornerHeight;
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D MouthLeftCorner = new Vector3D(currRow[31 - 4], currRow[32 - 4], currRow[33 - 4]);
+                    Vector3D MouthRightCorner = new Vector3D(currRow[67 - 4], currRow[68 - 4], currRow[69 - 4]);
+                    Vector3D MouthUpperLipMidBottom = new Vector3D(currRow[94 - 4], currRow[95 - 4], currRow[96 - 4]);
+
+                    double avgLipCornerHeight = MouthLeftCorner.Y + MouthRightCorner.Y / 2;
+
+                    double distance = MouthUpperLipMidBottom.Y - avgLipCornerHeight;
+
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
+
+                    double output = restDistance - distance;
+
+                    au12.Add(output > 0 ? output : 0);
+
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au13);
+            }
+            */
+
+            /*
             * AU14 Dimpler //Ralph
             * MouthLeftCorner = 31 32 33
             * MouthRightCorner = 67 68 69
             */
-            
             {
 
                 _nameAU.Add("Dimpler");
