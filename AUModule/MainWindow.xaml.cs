@@ -850,8 +850,34 @@ namespace AUModule
                 _nameAU.Add("JawDrop");
                 _numAU.Add("AU26");
                 List<double> au26 = new List<double>();
+
+                double restDistance = Distance3D(restNoseBottom, restChinCenter);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+
+                    Vector3D noseBottom = new Vector3D(currRow[16 - 4], currRow[17 - 4], currRow[18 - 4]);
+                    Vector3D chinCenter = new Vector3D(currRow[7 - 4], currRow[8 - 4], currRow[9 - 4]);
+
+                    double distance = Distance3D(noseBottom, chinCenter);
+
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
+
+                    double output = distance - restDistance;
+
+                    au26.Add(output > 0? output: 0);
+
+                    //Console.WriteLine(output);
+
+                }
+
                 _AUs.Add(au26);
             }
+
+
+
 
             /*
             * AU28 JawDrop //Ralph
@@ -1014,7 +1040,7 @@ namespace AUModule
                     au50.Add(output > 0? output:0);
 
                 }
-                _AUs.Add(au50)
+                _AUs.Add(au50);
             }
 
 
