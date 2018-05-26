@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Windows.Media.Media3D;
 
 
+
 namespace AUModule
 {
     /// <summary>
@@ -26,7 +27,7 @@ namespace AUModule
         private List<String> _timeStamps;
         private List<String> _annotations;
 
-
+        
         private List<double> _rotationW;
         private List<double> _rotationX;
         private List<double> _rotationY;
@@ -52,8 +53,7 @@ namespace AUModule
         {
             this.InitializeComponent();
 
-
-            //UpdateFacePoints();
+            
         }
 
 
@@ -67,6 +67,9 @@ namespace AUModule
             openFileDialog.Filter = "CSV (*.csv)|*.csv|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
                 Box_File.Text = (openFileDialog.FileName);
+
+
+        
         }
 
         private void Load_Click(object sender, RoutedEventArgs e)
@@ -136,7 +139,7 @@ namespace AUModule
 
             for (int rowIndex = 0; rowIndex < _rowsCSV.Count(); rowIndex++)
             {
-                Quaternion v4 = new Quaternion(_rotationX[rowIndex], _rotationY[rowIndex], _rotationZ[rowIndex], _rotationW[rowIndex]);
+                System.Windows.Media.Media3D.Quaternion v4 = new System.Windows.Media.Media3D.Quaternion(_rotationX[rowIndex], _rotationY[rowIndex], _rotationZ[rowIndex], _rotationW[rowIndex]);
                 Vector3D head = new Vector3D(_rowsCSV[rowIndex][0], _rowsCSV[rowIndex][1], _rowsCSV[rowIndex][2]);
 
                 List<double> auRow = new List<double>();
@@ -227,6 +230,7 @@ namespace AUModule
 
             /*
              * Initialize rest points
+             * 
              */
 
             Vector3D restChinCenter = new Vector3D(_restRow[7], _restRow[8], _restRow[9]);
@@ -235,27 +239,33 @@ namespace AUModule
             Vector3D restNoseBottom = new Vector3D(_restRow[16], _restRow[17], _restRow[18]);
             Vector3D restMouthUpperlipMidTop = new Vector3D(_restRow[22], _restRow[23], _restRow[24]);
             Vector3D restNoseTop = new Vector3D(_restRow[25], _restRow[26], _restRow[27]);
+            Vector3D restMouthLeftCorner = new Vector3D(_restRow[31], _restRow[32], _restRow[33]);
             Vector3D restLeftEyeBrowOuter = new Vector3D(_restRow[34], _restRow[35], _restRow[36]);
             Vector3D restNoseTopLeft = new Vector3D(_restRow[37], _restRow[38], _restRow[39]);
+            Vector3D restNoseBottomLeft = new Vector3D(_restRow[40], _restRow[41], _restRow[42]);
             Vector3D restLeftEyeInner = new Vector3D(_restRow[43], _restRow[44], _restRow[45]);
             Vector3D restLeftEyeMidTop = new Vector3D(_restRow[49], _restRow[50], _restRow[51]);
             Vector3D restLeftEyeBrowInner = new Vector3D(_restRow[52], _restRow[53], _restRow[54]);
+            Vector3D restLeftCheekBone = new Vector3D(_restRow[58], _restRow[59], _restRow[60]);
             Vector3D restLeftEyeOuterCorner = new Vector3D(_restRow[61], _restRow[62], _restRow[63]);
+            Vector3D restRightCheekBone = new Vector3D(_restRow[64], _restRow[65], _restRow[66]);
+            Vector3D restMouthRightCorner = new Vector3D(_restRow[67], _restRow[68], _restRow[69]);
             Vector3D restRightEyeMidTop = new Vector3D(_restRow[70], _restRow[71], _restRow[72]);
             Vector3D restRightEyeBrowOuter = new Vector3D(_restRow[73], _restRow[74], _restRow[75]);
             Vector3D restNoseTopRight = new Vector3D(_restRow[76], _restRow[77], _restRow[78]);
+            Vector3D restNoseBottomRight = new Vector3D(_restRow[79], _restRow[80], _restRow[81]);
             Vector3D restRightEyeBrowInner = new Vector3D(_restRow[82], _restRow[83], _restRow[84]);
             Vector3D restRightEyeInner = new Vector3D(_restRow[85], _restRow[86], _restRow[87]);
             Vector3D restMouthUpperlipMidBottom = new Vector3D(_restRow[94], _restRow[95], _restRow[96]);
             Vector3D restLeftEyeMidBottom = new Vector3D(_restRow[97], _restRow[98], _restRow[99]);
             Vector3D restRightEyeMidBottom = new Vector3D(_restRow[100], _restRow[101], _restRow[102]);
             Vector3D restRightEyeOuterCorner = new Vector3D(_restRow[103], _restRow[104], _restRow[105]);
-            Vector3D restMouthLeftCorner = new Vector3D(_restRow[31], _restRow[32], _restRow[33]);
-            Vector3D restMouthRightCorner = new Vector3D(_restRow[67], _restRow[68], _restRow[69]);
-            Vector3D restLeftCheekBone = new Vector3D(_restRow[58], _restRow[59], _restRow[60]);
-            Vector3D restRightCheekBone = new Vector3D(_restRow[64], _restRow[65], _restRow[66]);
-            Vector3D restNoseBottomLeft = new Vector3D(_restRow[40], _restRow[41], _restRow[42]);
-            Vector3D restNoseBottomRight = new Vector3D(_restRow[79], _restRow[80], _restRow[81]);
+            
+            
+            
+            
+            
+            
 
 
 
@@ -520,7 +530,7 @@ namespace AUModule
 
                     //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
 
-                    au16.Add(output > 0 ? output : 0);
+                    au10.Add(output > 0 ? output : 0);
 
                     //Console.WriteLine(output);
 
@@ -905,6 +915,89 @@ namespace AUModule
                 _AUs.Add(au44);
 
             }
+
+
+
+
+
+
+
+            /*****
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * Rotation AUs
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             */
+
+            Quaternion restRotQ = new Quaternion(_restRow[1], _restRow[2], _restRow[3], _restRow[0]);
+
+            Vector3D restRotE = ToEulerAngle(restRotQ);
+
+
+
+            //Console.WriteLine(restRotQ.X + " " + restRotQ.Y + " " + restRotQ.Z+" "+restRotQ.W);
+            // Console.WriteLine(restRotE.X + " " + restRotE.Y + " " + restRotE.Z);
+
+            List<Vector3D> conjugateRotations = new List<Vector3D>();
+            
+
+
+            for (int i = 0; i < _rotationW.Count; i++)
+            {
+                Quaternion currQ = new Quaternion(_rotationX[i], _rotationY[i], _rotationZ[i],_rotationW[i]);
+                Vector3D currE = ToEulerAngle(currQ);
+                currE.X = currE.X - restRotE.X;
+                currE.Y = currE.Y - restRotE.Y;
+                currE.Z = currE.Z - restRotE.Z;
+
+                conjugateRotations.Add(currE);
+            }
+
+
+
+            /*
+             * AU50 Look Left //Vincent  THIS IS NOT THE RIGHT AU LOOK IT UP AND TEST
+             */
+            {
+                _nameAU.Add("Look Left ");
+                _numAU.Add("AU50");
+                List<double> au50 = new List<double>();
+
+                for(int i = 0; i < conjugateRotations.Count; i++)
+                {
+                    /*
+                     * REMEMBER REST IS 0, 0, 0 degrees
+                     */
+                    Vector3D currRot = conjugateRotations[i];
+                    double output = currRot.X;
+                    au50.Add(output > 0? output:0);
+
+                }
+                _AUs.Add(au50)
+            }
+
+
+
         }
 
         private double Distance3D(Vector3D A,Vector3D B)
@@ -915,6 +1008,34 @@ namespace AUModule
 
             return Math.Sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
         }
+
+
+
+        public Vector3D ToEulerAngle(Quaternion q)
+        {
+	        // roll (x-axis rotation)
+	        double sinr = +2.0 * (q.W * q.X + q.Y * q.Z);
+            double cosr = +1.0 - 2.0 * (q.X * q.X + q.Y * q.Y);
+            double roll = Math.Atan2(sinr, cosr);
+
+            double pitch;
+                // pitch (y-axis rotation)
+            double sinp = +2.0 * (q.W * q.Y - q.Z * q.X);
+	        if (Math.Abs(sinp) >= 1)
+		        pitch = C.math.copysign(Math.PI / 2, sinp); // use 90 degrees if out of range
+	        else
+		        pitch = Math.Asin(sinp);
+
+                // yaw (z-axis rotation)
+                double siny = +2.0 * (q.W * q.Z + q.X * q.Y);
+                double cosy = +1.0 - 2.0 * (q.Y * q.Y + q.Z * q.Z);
+                double yaw = Math.Atan2(siny, cosy);
+            
+            Vector3D  d = new Vector3D(roll * (180.0 / Math.PI), pitch * (180.0 / Math.PI), yaw * (180.0 / Math.PI)); //Radians to Degrees
+            return d;
+        }
+        
+
 
     }
 }
