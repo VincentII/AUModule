@@ -225,6 +225,7 @@ namespace AUModule
             //RightCheekBone = 64 65 66
             //NoseBottomLeft = 40 41 42
             //NoseBottomRight = 79 80 81
+            //MouthUpperLipMidTop = 22 23 24
 
 
 
@@ -854,14 +855,40 @@ namespace AUModule
             }
 
             /*
-            * AU28 JawDrop //Ralph
+            * AU28 Lip Suck //Ralph
             */
+            /*
             {
                 _nameAU.Add("Lip Suck");
                 _numAU.Add("AU28");
                 List<double> au28 = new List<double>();
                 _AUs.Add(au28);
+
+                double restDistance = Distance3D(restMouthUpperlipMidTop, restMouthLowerlipMidBottom);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+
+                    Vector3D MouthUpperlipMidTop = new Vector3D(currRow[22 - 4], currRow[23 - 4], currRow[24 - 4]);
+                    Vector3D MouthLowerlipMidBottom = new Vector3D(currRow[10 - 4], currRow[11 - 4], currRow[12 - 4]);
+
+                    double distance = Distance3D(MouthUpperlipMidTop, MouthLowerlipMidBottom);
+
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
+
+                    double output = restDistance - distance;
+
+                    au28.Add(output);
+
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au28);
             }
+            */
 
             /*
             * AU38 Nostril Dilator //Ralph
