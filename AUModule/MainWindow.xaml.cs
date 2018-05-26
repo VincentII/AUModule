@@ -584,35 +584,52 @@ namespace AUModule
             /*
             * AU13 Cheek Puffer //Ralph
             *
+            * // Vector3D restLeftEyeOuterCorner = new Vector3D(_restRow[61], _restRow[62], _restRow[63]);
+            * // Vector3D restRightEyeOuterCorner = new Vector3D(_restRow[103], _restRow[104], _restRow[105]);
+            * // Vector3D restLeftCheekBone = new Vector3D(_restRow[58], _restRow[59], _restRow[60]);
+            * // Vector3D restRightCheekBone = new Vector3D(_restRow[64], _restRow[65], _restRow[66]);
+            * //Vector3D restNoseBottomLeft = new Vector3D(_restRow[40], _restRow[41], _restRow[42]);
+            * //Vector3D restNoseBottomRight = new Vector3D(_restRow[79], _restRow[80], _restRow[81]);
             */
-            /*
             {
 
                 _nameAU.Add("Cheek Puffer");
                 _numAU.Add("AU13");
                 List<double> au13 = new List<double>();
 
-                double avgRestLipCornerHeight = restMouthLeftCorner.Y + restMouthRightCorner.Y / 2;
+                double restLeftDistance = Distance3D(restLeftEyeOuterCorner, restLeftCheekBone);
+                double restRightDistance = Distance3D(restRightEyeOuterCorner, restRightCheekBone);
+                double restDistance = restLeftDistance + restRightDistance / 2;
 
-                double restDistance = restMouthUpperlipMidBottom.Y - avgRestLipCornerHeight;
+                double restNoseWideness = Distance3D(restNoseBottomLeft, restNoseBottomRight);
 
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
                     List<double> currRow = _rowsCSV[i];
 
-                    Vector3D MouthLeftCorner = new Vector3D(currRow[31 - 4], currRow[32 - 4], currRow[33 - 4]);
-                    Vector3D MouthRightCorner = new Vector3D(currRow[67 - 4], currRow[68 - 4], currRow[69 - 4]);
-                    Vector3D MouthUpperLipMidBottom = new Vector3D(currRow[94 - 4], currRow[95 - 4], currRow[96 - 4]);
+                    Vector3D LeftEyeOuterCorner = new Vector3D(currRow[61 - 4], currRow[62 - 4], currRow[63 - 4]);
+                    Vector3D RightEyeOuterCorner = new Vector3D(currRow[103 - 4], currRow[104 - 4], currRow[105 - 4]);
+                    Vector3D LeftCheekBone = new Vector3D(currRow[58 - 4], currRow[59 - 4], currRow[60 - 4]);
+                    Vector3D RightCheekBone = new Vector3D(currRow[64 - 4], currRow[65 - 4], currRow[66 - 4]);
 
-                    double avgLipCornerHeight = MouthLeftCorner.Y + MouthRightCorner.Y / 2;
+                    double leftDistance = Distance3D(LeftEyeOuterCorner, LeftCheekBone);
+                    double rightDistance = Distance3D(RightEyeOuterCorner, RightCheekBone);
 
-                    double distance = MouthUpperLipMidBottom.Y - avgLipCornerHeight;
+                    double distance = leftDistance + rightDistance / 2;
+                    double output = restDistance - distance;
+
+
+                    Vector3D NoseBottomLeft = new Vector3D(currRow[40 - 4], currRow[41 - 4], currRow[42 - 4]);
+                    Vector3D NoseBottomRight = new Vector3D(currRow[79 - 4], currRow[80 - 4], currRow[81 - 4]);
+
+                    double noseDistance = Distance3D(NoseBottomLeft, NoseBottomRight);
+                    double outputNose = restNoseWideness - noseDistance;
 
                     //Console.WriteLine(i+": "+MouthStretchDistance);
 
-                    double output = restDistance - distance;
 
-                    au12.Add(output > 0 ? output : 0);
+
+                    au13.Add(output > 0 ? output : 0);
 
                     //Console.WriteLine(output);
 
@@ -620,7 +637,6 @@ namespace AUModule
 
                 _AUs.Add(au13);
             }
-            */
 
             /*
             * AU14 Dimpler //Ralph
