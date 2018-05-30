@@ -273,6 +273,7 @@ namespace AUModule
              * 
              */
 
+            Vector3D restHead = new Vector3D(_restRow[4], _restRow[5], _restRow[6]);
             Vector3D restChinCenter = new Vector3D(_restRow[7], _restRow[8], _restRow[9]);
             Vector3D restMouthLowerlipMidBottom = new Vector3D(_restRow[10], _restRow[11], _restRow[12]);
             Vector3D restMouthLowerlipMidTop = new Vector3D(_restRow[13], _restRow[14], _restRow[15]);
@@ -1271,6 +1272,78 @@ namespace AUModule
                 _AUs.Add(au56);
             }
 
+            /*
+             * 
+             * 
+             * 
+             * 
+             * 
+             * Move Forward and Back
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             */
+
+            /*
+            * AU57 Head Forward //Vincent
+            */
+            {
+                _nameAU.Add("Head Forward");
+                _numAU.Add("AU57");
+                List<double> au57 = new List<double>();
+
+
+                double restZPosition = restHead.Z;
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D headPoint = new Vector3D(currRow[4 - 4], currRow[5 - 4], currRow[6 - 4]);
+
+                    double ZPosition = headPoint.Z;
+
+                    double output = restZPosition - ZPosition;
+                    //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
+
+                    au57.Add(output > 0?output:0);
+                }
+
+                _AUs.Add(au57);
+
+            }
+
+            /*
+           * AU58 Head Forward //Vincent
+           */
+            {
+                _nameAU.Add("Head Back");
+                _numAU.Add("AU58");
+                List<double> au58 = new List<double>();
+
+
+                double restZPosition = restHead.Z;
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D headPoint = new Vector3D(currRow[4 - 4], currRow[5 - 4], currRow[6 - 4]);
+
+                    double ZPosition = headPoint.Z;
+
+                    double output = restZPosition - ZPosition;
+                    //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
+
+                    au58.Add(output < 0 ? -output : 0);
+                }
+
+                _AUs.Add(au58);
+
+            }
 
         }
 
