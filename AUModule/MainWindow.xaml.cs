@@ -287,6 +287,7 @@ namespace AUModule
             Vector3D restLeftEyeInner = new Vector3D(_restRow[43], _restRow[44], _restRow[45]);
             Vector3D restLeftEyeMidTop = new Vector3D(_restRow[49], _restRow[50], _restRow[51]);
             Vector3D restLeftEyeBrowInner = new Vector3D(_restRow[52], _restRow[53], _restRow[54]);
+            Vector3D restLeftCheekCenter = new Vector3D(_restRow[55], _restRow[56], _restRow[57]);
             Vector3D restLeftCheekBone = new Vector3D(_restRow[58], _restRow[59], _restRow[60]);
             Vector3D restLeftEyeOuterCorner = new Vector3D(_restRow[61], _restRow[62], _restRow[63]);
             Vector3D restRightCheekBone = new Vector3D(_restRow[64], _restRow[65], _restRow[66]);
@@ -297,17 +298,12 @@ namespace AUModule
             Vector3D restNoseBottomRight = new Vector3D(_restRow[79], _restRow[80], _restRow[81]);
             Vector3D restRightEyeBrowInner = new Vector3D(_restRow[82], _restRow[83], _restRow[84]);
             Vector3D restRightEyeInner = new Vector3D(_restRow[85], _restRow[86], _restRow[87]);
+            Vector3D restRightCheekCenter = new Vector3D(_restRow[91], _restRow[92], _restRow[93]);
             Vector3D restMouthUpperlipMidBottom = new Vector3D(_restRow[94], _restRow[95], _restRow[96]);
             Vector3D restLeftEyeMidBottom = new Vector3D(_restRow[97], _restRow[98], _restRow[99]);
             Vector3D restRightEyeMidBottom = new Vector3D(_restRow[100], _restRow[101], _restRow[102]);
             Vector3D restRightEyeOuterCorner = new Vector3D(_restRow[103], _restRow[104], _restRow[105]);
             
-            
-            
-            
-            
-            
-
 
 
 
@@ -1139,10 +1135,64 @@ namespace AUModule
             */
 
             /*
-            * AU34 Cheek Puffer //Ralph
+            * AU34 Cheek Puff Left //Ralph
             */
             {
+                _nameAU.Add("Cheek Puff (Left)");
+                _numAU.Add("AU34L");
+                List<double> au34 = new List<double>();
 
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D leftCheekCenter = new Vector3D(currRow[55 - 4], currRow[56 - 4], currRow[57 - 4]);
+
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
+
+                    double outputX = leftCheekCenter.X - restLeftCheekCenter.X;
+                    double outputZ = leftCheekCenter.Z - restLeftCheekCenter.Z;
+
+                    double output = outputX + outputZ / 2;
+
+                    double threshold = 0.003;
+                    //au34.Add(-output < threshold ? 0 : -output*2);
+                    au34.Add(-output);
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au34);
+            }
+
+            /*
+            * AU34 Cheek Puff Right //Ralph
+            */
+            {
+                _nameAU.Add("Cheek Puff (Right)");
+                _numAU.Add("AU34R");
+                List<double> au34 = new List<double>();
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+                    
+                    Vector3D rightCheekCenter = new Vector3D(currRow[91 - 4], currRow[92 - 4], currRow[93 - 4]);
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
+
+                    double outputX = restRightCheekCenter.X - rightCheekCenter.X;
+                    double outputZ = rightCheekCenter.Z - restRightCheekCenter.Z;
+
+                    double output = outputX + outputZ / 2;
+
+                    double threshold = 0.003;
+                    //au34.Add(output < threshold ? 0 : output * 2);
+                    au34.Add(-output);
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au34);
             }
 
             /*
