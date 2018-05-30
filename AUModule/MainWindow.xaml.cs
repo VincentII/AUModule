@@ -1145,12 +1145,12 @@ namespace AUModule
 
 
             /*
-             * AU50 Look Left //Vincent  THIS IS NOT THE RIGHT AU LOOK IT UP AND TEST
+             * AU51 Head Turn Left //Vincent  THIS IS NOT THE RIGHT AU LOOK IT UP AND TEST
              */
             {
-                _nameAU.Add("Look Left ");
-                _numAU.Add("AU50");
-                List<double> au50 = new List<double>();
+                _nameAU.Add("Head Turn Left");
+                _numAU.Add("AU51");
+                List<double> au51 = new List<double>();
 
                 for(int i = 0; i < conjugateRotations.Count; i++)
                 {
@@ -1159,12 +1159,117 @@ namespace AUModule
                      */
                     Vector3D currRot = conjugateRotations[i];
                     double output = currRot.X;
-                    au50.Add(output > 0? output:0);
+                    au51.Add(output > 0? output:0);
 
                 }
-                _AUs.Add(au50);
+                _AUs.Add(au51);
             }
 
+            /*
+            * AU52 Head Turn Right //Vincent  THIS IS NOT THE RIGHT AU LOOK IT UP AND TEST
+            */
+            {
+                _nameAU.Add("Head Turn Right");
+                _numAU.Add("AU52");
+                List<double> au52 = new List<double>();
+
+                for (int i = 0; i < conjugateRotations.Count; i++)
+                {
+                    /*
+                     * REMEMBER REST IS 0, 0, 0 degrees
+                     */
+                    Vector3D currRot = conjugateRotations[i];
+                    double output = currRot.X;
+                    au52.Add(output < 0 ? -output : 0);
+
+                }
+                _AUs.Add(au52);
+            }
+
+
+            /*
+             * AU53 Head Up //Vincent  THIS IS NOT THE RIGHT AU LOOK IT UP AND TEST
+             */
+            {
+                _nameAU.Add("Head Up");
+                _numAU.Add("AU53");
+                List<double> au53 = new List<double>();
+
+                for (int i = 0; i < conjugateRotations.Count; i++)
+                {
+                    /*
+                     * REMEMBER REST IS 0, 0, 0 degrees
+                     */
+                    Vector3D currRot = conjugateRotations[i];
+                    double output = currRot.Y;
+                    au53.Add(output > 0 ? output : 0);
+
+                }
+                _AUs.Add(au53);
+            }
+
+            /*
+            * AU54 Head Down //Vincent  THIS IS NOT THE RIGHT AU LOOK IT UP AND TEST
+            */
+            {
+                _nameAU.Add("Head Down");
+                _numAU.Add("AU54");
+                List<double> au54 = new List<double>();
+
+                for (int i = 0; i < conjugateRotations.Count; i++)
+                {
+                    /*
+                     * REMEMBER REST IS 0, 0, 0 degrees
+                     */
+                    Vector3D currRot = conjugateRotations[i];
+                    double output = currRot.Y;
+                    au54.Add(output < 0 ? -output : 0);
+
+                }
+                _AUs.Add(au54);
+            }
+
+            /*
+            * AU55 Head Tilt Left //Vincent  THIS IS NOT THE RIGHT AU LOOK IT UP AND TEST
+            */
+            {
+                _nameAU.Add("Head Tilt Left");
+                _numAU.Add("AU55");
+                List<double> au55 = new List<double>();
+
+                for (int i = 0; i < conjugateRotations.Count; i++)
+                {
+                    /*
+                     * REMEMBER REST IS 0, 0, 0 degrees
+                     */
+                    Vector3D currRot = conjugateRotations[i];
+                    double output = currRot.Z;
+                    au55.Add(output > 0 ? output : 0);
+
+                }
+                _AUs.Add(au55);
+            }
+
+            /*
+            * AU56 Head Turn Right //Vincent  THIS IS NOT THE RIGHT AU LOOK IT UP AND TEST
+            */
+            {
+                _nameAU.Add("Head Tilt Right");
+                _numAU.Add("AU56");
+                List<double> au56 = new List<double>();
+
+                for (int i = 0; i < conjugateRotations.Count; i++)
+                {
+                    /*
+                     * REMEMBER REST IS 0, 0, 0 degrees
+                     */
+                    Vector3D currRot = conjugateRotations[i];
+                    double output = currRot.Z;
+                    au56.Add(output < 0 ? -output : 0);
+
+                }
+                _AUs.Add(au56);
+            }
 
 
         }
