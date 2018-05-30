@@ -384,29 +384,60 @@ namespace AUModule
             }
 
             /*
-             * AU2 Outer Brow Raiser //VICNENT yes vicnent
+             * AU2L Outer Brow Raiser LEFT //VICNENT yes vicnent
              */
             {
-                _nameAU.Add("outerBrowRiser");
-                _numAU.Add("AU2");
+                _nameAU.Add("outer Brow Riser (Left)");
+                _numAU.Add("AU2L");
                 List<double> au2 = new List<double>();
 
                 double restLeftDistance = Distance3D(restLeftEyeOuterCorner, restLeftEyeBrowOuter);
-                double restRightDistance = Distance3D(restRightEyeOuterCorner, restRightEyeBrowOuter);
-
+                
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
                     List<double> currRow = _rowsCSV[i];
 
                     Vector3D LeftEyeOuterCorner = new Vector3D(currRow[61 - 4], currRow[62 - 4], currRow[63 - 4]);
                     Vector3D LeftEyeBrowOuter = new Vector3D(currRow[34 - 4], currRow[35 - 4], currRow[36 - 4]);
+                
+                    double LeftDistance = Distance3D(LeftEyeOuterCorner, LeftEyeBrowOuter);
+                
+                    double output = ((LeftDistance - restLeftDistance));
+
+
+
+                    au2.Add(output > 0 ? output : 0);
+
+
+
+                }
+
+                _AUs.Add(au2);
+
+
+
+            }
+
+
+            /*
+             * AU2R Outer Brow Raiser Right //VICNENT yes vicnent
+             */
+            {
+                _nameAU.Add("Outer Brow Riser (Right)");
+                _numAU.Add("AU2R");
+                List<double> au2 = new List<double>();
+
+                double restRightDistance = Distance3D(restRightEyeOuterCorner, restRightEyeBrowOuter);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
                     Vector3D RightEyeBrowOuter = new Vector3D(currRow[73 - 4], currRow[74 - 4], currRow[75 - 4]);
                     Vector3D RightEyeOuterCorner = new Vector3D(currRow[103 - 4], currRow[104 - 4], currRow[105 - 4]);
 
-                    double LeftDistance = Distance3D(LeftEyeOuterCorner, LeftEyeBrowOuter);
                     double RightDistance = Distance3D(RightEyeOuterCorner, RightEyeBrowOuter);
-
-                    double output = ((LeftDistance - restLeftDistance) + (RightDistance - restRightDistance)) / 2;
+                    double output = ((RightDistance - restRightDistance));
 
 
 
