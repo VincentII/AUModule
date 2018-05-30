@@ -309,15 +309,14 @@ namespace AUModule
 
 
             /*
-             *  AU1 Inner brow raiser
+             *  AU1L Inner brow raiser L
              */
             {
-                _nameAU.Add("InnerBrowRiser");
-                _numAU.Add("AU1");
-                List<double> au1 = new List<double>();
+                _nameAU.Add("Inner Brow Riser (Left)");
+                _numAU.Add("AU1L");
+                List<double> au1L = new List<double>();
 
                 double restLeftDistance = Distance3D(restLeftEyeInner, restLeftEyeBrowInner);
-                double restRightDistance = Distance3D(restRightEyeInner, restRightEyeBrowInner);
 
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
@@ -325,101 +324,196 @@ namespace AUModule
 
                     Vector3D LeftEyeInner = new Vector3D(currRow[43 - 4], currRow[44 - 4], currRow[45 - 4]);
                     Vector3D LeftEyeBrowInner = new Vector3D(currRow[52 - 4], currRow[53 - 4], currRow[54 - 4]);
-                    Vector3D RightEyeBrowInner = new Vector3D(currRow[82 - 4], currRow[83 - 4], currRow[84 - 4]);
-                    Vector3D RightEyeInner = new Vector3D(currRow[85 - 4], currRow[86 - 4], currRow[87 - 4]);
 
                     double LeftDistance = Distance3D(LeftEyeInner, LeftEyeBrowInner);
-                    double RightDistance = Distance3D(RightEyeInner, RightEyeBrowInner);
 
-                    double output = ((LeftDistance - restLeftDistance) + (RightDistance - restRightDistance)) / 2;
-
+                    double output = ((LeftDistance - restLeftDistance));
 
 
-                    au1.Add(output > 0 ? output : 0);
+
+                    au1L.Add(output > 0 ? output : 0);
 
 
 
                 }
 
-                _AUs.Add(au1);
+                _AUs.Add(au1L);
+
+
+
+            }
+
+
+            /*
+             *  AU1R Inner brow raiser R
+             */
+            {
+                _nameAU.Add("Inner Brow Riser (Right)");
+                _numAU.Add("AU1R");
+                List<double> au1R = new List<double>();
+                
+                double restRightDistance = Distance3D(restRightEyeInner, restRightEyeBrowInner);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D RightEyeBrowInner = new Vector3D(currRow[82 - 4], currRow[83 - 4], currRow[84 - 4]);
+                    Vector3D RightEyeInner = new Vector3D(currRow[85 - 4], currRow[86 - 4], currRow[87 - 4]);
+                    
+                    double RightDistance = Distance3D(RightEyeInner, RightEyeBrowInner);
+
+                    double output = ((RightDistance - restRightDistance));
+
+
+
+                    au1R.Add(output > 0 ? output : 0);
+
+
+
+                }
+
+                _AUs.Add(au1R);
 
 
 
             }
 
             /*
-             * AU2 Outer Brow Raiser //VICNENT yes vicnent
+             * AU2L Outer Brow Raiser LEFT //VICNENT yes vicnent
              */
             {
-                _nameAU.Add("outerBrowRiser");
-                _numAU.Add("AU2");
-                List<double> au2 = new List<double>();
+                _nameAU.Add("outer Brow Riser (Left)");
+                _numAU.Add("AU2L");
+                List<double> au2L = new List<double>();
 
                 double restLeftDistance = Distance3D(restLeftEyeOuterCorner, restLeftEyeBrowOuter);
-                double restRightDistance = Distance3D(restRightEyeOuterCorner, restRightEyeBrowOuter);
-
+                
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
                     List<double> currRow = _rowsCSV[i];
 
                     Vector3D LeftEyeOuterCorner = new Vector3D(currRow[61 - 4], currRow[62 - 4], currRow[63 - 4]);
                     Vector3D LeftEyeBrowOuter = new Vector3D(currRow[34 - 4], currRow[35 - 4], currRow[36 - 4]);
-                    Vector3D RightEyeBrowOuter = new Vector3D(currRow[73 - 4], currRow[74 - 4], currRow[75 - 4]);
-                    Vector3D RightEyeOuterCorner = new Vector3D(currRow[103 - 4], currRow[104 - 4], currRow[105 - 4]);
-
+                
                     double LeftDistance = Distance3D(LeftEyeOuterCorner, LeftEyeBrowOuter);
-                    double RightDistance = Distance3D(RightEyeOuterCorner, RightEyeBrowOuter);
-
-                    double output = ((LeftDistance - restLeftDistance) + (RightDistance - restRightDistance)) / 2;
-
+                
+                    double output = ((LeftDistance - restLeftDistance));
 
 
-                    au2.Add(output > 0 ? output : 0);
+
+                    au2L.Add(output > 0 ? output : 0);
 
 
 
                 }
 
-                _AUs.Add(au2);
+                _AUs.Add(au2L);
+
+
+
+            }
+
+
+            /*
+             * AU2R Outer Brow Raiser Right //VICNENT yes vicnent
+             */
+            {
+                _nameAU.Add("Outer Brow Riser (Right)");
+                _numAU.Add("AU2R");
+                List<double> au2R = new List<double>();
+
+                double restRightDistance = Distance3D(restRightEyeOuterCorner, restRightEyeBrowOuter);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D RightEyeBrowOuter = new Vector3D(currRow[73 - 4], currRow[74 - 4], currRow[75 - 4]);
+                    Vector3D RightEyeOuterCorner = new Vector3D(currRow[103 - 4], currRow[104 - 4], currRow[105 - 4]);
+
+                    double RightDistance = Distance3D(RightEyeOuterCorner, RightEyeBrowOuter);
+                    double output = ((RightDistance - restRightDistance));
+
+
+
+                    au2R.Add(output > 0 ? output : 0);
+
+
+
+                }
+
+                _AUs.Add(au2R);
 
 
 
             }
 
             /*
-             *  AU4 Brow Lowerer
+             *  AU4 Brow Lowerer Left
              */
             {
-                _nameAU.Add("BrowLowerer");
-                _numAU.Add("AU4");
-                List<double> au4 = new List<double>();
+                _nameAU.Add("Brow Lowerer (Left)");
+                _numAU.Add("AU4L");
+                List<double> au4L = new List<double>();
 
                 double restLeftDistance = Distance3D(restLeftEyeInner, restLeftEyeBrowInner);
-                double restRightDistance = Distance3D(restRightEyeInner, restRightEyeBrowInner);
-
+                
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
                     List<double> currRow = _rowsCSV[i];
 
                     Vector3D LeftEyeInner = new Vector3D(currRow[43 - 4], currRow[44 - 4], currRow[45 - 4]);
                     Vector3D LeftEyeBrowInner = new Vector3D(currRow[52 - 4], currRow[53 - 4], currRow[54 - 4]);
-                    Vector3D RightEyeBrowInner = new Vector3D(currRow[82 - 4], currRow[83 - 4], currRow[84 - 4]);
-                    Vector3D RightEyeInner = new Vector3D(currRow[85 - 4], currRow[86 - 4], currRow[87 - 4]);
-
+                
                     double LeftDistance = Distance3D(LeftEyeInner, LeftEyeBrowInner);
-                    double RightDistance = Distance3D(RightEyeInner, RightEyeBrowInner);
-
-                    double output = ((LeftDistance - restLeftDistance) + (RightDistance - restRightDistance)) / 2;
+                
+                    double output = ((LeftDistance - restLeftDistance));
 
                     //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
 
-                    au4.Add(output < 0 ? -output : 0);
+                    au4L.Add(output < 0 ? -output : 0);
 
                     //Console.WriteLine(output);
 
                 }
 
-                _AUs.Add(au4);
+                _AUs.Add(au4L);
+
+
+
+            }
+
+            /*
+            *  AU4 Brow Lowerer Right
+            */
+            {
+                _nameAU.Add("BrowLowerer (Right)");
+                _numAU.Add("AU4R");
+                List<double> au4R = new List<double>();
+
+                double restRightDistance = Distance3D(restRightEyeInner, restRightEyeBrowInner);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D RightEyeBrowInner = new Vector3D(currRow[82 - 4], currRow[83 - 4], currRow[84 - 4]);
+                    Vector3D RightEyeInner = new Vector3D(currRow[85 - 4], currRow[86 - 4], currRow[87 - 4]);
+
+                    double RightDistance = Distance3D(RightEyeInner, RightEyeBrowInner);
+
+                    double output = ((RightDistance - restRightDistance));
+
+                    //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
+
+                    au4R.Add(output < 0 ? -output : 0);
+
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au4R);
 
 
 
@@ -1109,40 +1203,67 @@ namespace AUModule
             */
 
             /*
-             * AU41-44 Eyes Closed //Vincent
+             * AU41-44 Eyes Closed Left //Vincent
              */
             {
-                _nameAU.Add("EyesClosed");
-                _numAU.Add("AU41-44");
-                List<double> au44 = new List<double>();
+                _nameAU.Add("Eyes Closed (Left)");
+                _numAU.Add("AU41-44L");
+                List<double> au44L = new List<double>();
 
 
                 double restLeftDistance = Distance3D(restLeftEyeMidTop, restLeftEyeMidBottom);
-                double restRightDistance = Distance3D(restRightEyeMidTop, restRightEyeMidBottom);
-
+              
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
                     List<double> currRow = _rowsCSV[i];
 
                     Vector3D LeftEyeMidTop = new Vector3D(currRow[49 - 4], currRow[50 - 4], currRow[51 - 4]);
                     Vector3D LeftEyeMidBottom = new Vector3D(currRow[97 - 4], currRow[98 - 4], currRow[99 - 4]);
-                    Vector3D RightEyeMidTop = new Vector3D(currRow[70 - 4], currRow[71 - 4], currRow[72 - 4]);
-                    Vector3D RightEyeMidBottom = new Vector3D(currRow[100 - 4], currRow[101 - 4], currRow[102 - 4]);
-
+             
                     double LeftDistance = Distance3D(LeftEyeMidTop, LeftEyeMidBottom);
-                    double RightDistance = Distance3D(RightEyeMidTop, RightEyeMidBottom);
-
-                    double output = (((restLeftDistance - LeftDistance) > 0 ? (restLeftDistance - LeftDistance) : 0 )+ ((restRightDistance - RightDistance) >0 ? (restRightDistance - RightDistance) : 0)) / 2;
+             
+                    double output = restLeftDistance - LeftDistance;
 
                     //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
 
-                    au44.Add(output);
+                    au44L.Add(output>0?output:0);
                 }
 
-                _AUs.Add(au44);
+                _AUs.Add(au44L);
 
             }
 
+            /*
+             * AU41-44R Eyes Closed Right //Vincent
+             */
+            {
+                _nameAU.Add("Eyes Closed (Right)");
+                _numAU.Add("AU41-44R");
+                List<double> au44R = new List<double>();
+
+
+                double restRightDistance = Distance3D(restRightEyeMidTop, restRightEyeMidBottom);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D RightEyeMidTop = new Vector3D(currRow[70 - 4], currRow[71 - 4], currRow[72 - 4]);
+                    Vector3D RightEyeMidBottom = new Vector3D(currRow[100 - 4], currRow[101 - 4], currRow[102 - 4]);
+
+                    double RightDistance = Distance3D(RightEyeMidTop, RightEyeMidBottom);
+
+
+                    double output = (restRightDistance - RightDistance);
+
+                    //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
+
+                    au44R.Add(output > 0 ? output:0);
+                }
+
+                _AUs.Add(au44R);
+
+            }
 
 
 
