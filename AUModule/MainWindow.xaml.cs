@@ -1153,40 +1153,67 @@ namespace AUModule
             */
 
             /*
-             * AU41-44 Eyes Closed //Vincent
+             * AU41-44 Eyes Closed Left //Vincent
              */
             {
-                _nameAU.Add("EyesClosed");
-                _numAU.Add("AU41-44");
-                List<double> au44 = new List<double>();
+                _nameAU.Add("Eyes Closed (Left)");
+                _numAU.Add("AU41-44L");
+                List<double> au44L = new List<double>();
 
 
                 double restLeftDistance = Distance3D(restLeftEyeMidTop, restLeftEyeMidBottom);
-                double restRightDistance = Distance3D(restRightEyeMidTop, restRightEyeMidBottom);
-
+              
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
                     List<double> currRow = _rowsCSV[i];
 
                     Vector3D LeftEyeMidTop = new Vector3D(currRow[49 - 4], currRow[50 - 4], currRow[51 - 4]);
                     Vector3D LeftEyeMidBottom = new Vector3D(currRow[97 - 4], currRow[98 - 4], currRow[99 - 4]);
-                    Vector3D RightEyeMidTop = new Vector3D(currRow[70 - 4], currRow[71 - 4], currRow[72 - 4]);
-                    Vector3D RightEyeMidBottom = new Vector3D(currRow[100 - 4], currRow[101 - 4], currRow[102 - 4]);
-
+             
                     double LeftDistance = Distance3D(LeftEyeMidTop, LeftEyeMidBottom);
-                    double RightDistance = Distance3D(RightEyeMidTop, RightEyeMidBottom);
-
-                    double output = (((restLeftDistance - LeftDistance) > 0 ? (restLeftDistance - LeftDistance) : 0 )+ ((restRightDistance - RightDistance) >0 ? (restRightDistance - RightDistance) : 0)) / 2;
+             
+                    double output = restLeftDistance - LeftDistance;
 
                     //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
 
-                    au44.Add(output);
+                    au44L.Add(output>0?output:0);
                 }
 
-                _AUs.Add(au44);
+                _AUs.Add(au44L);
 
             }
 
+            /*
+             * AU41-44R Eyes Closed Right //Vincent
+             */
+            {
+                _nameAU.Add("Eyes Closed (Right)");
+                _numAU.Add("AU41-44R");
+                List<double> au44R = new List<double>();
+
+
+                double restRightDistance = Distance3D(restRightEyeMidTop, restRightEyeMidBottom);
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D RightEyeMidTop = new Vector3D(currRow[70 - 4], currRow[71 - 4], currRow[72 - 4]);
+                    Vector3D RightEyeMidBottom = new Vector3D(currRow[100 - 4], currRow[101 - 4], currRow[102 - 4]);
+
+                    double RightDistance = Distance3D(RightEyeMidTop, RightEyeMidBottom);
+
+
+                    double output = (restRightDistance - RightDistance);
+
+                    //Console.WriteLine(i+" "+RightDistance + " - " + restRightDistance + " = "+ (RightDistance - restRightDistance));
+
+                    au44R.Add(output > 0 ? output:0);
+                }
+
+                _AUs.Add(au44R);
+
+            }
 
 
 
