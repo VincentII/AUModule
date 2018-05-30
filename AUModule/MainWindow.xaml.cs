@@ -564,41 +564,73 @@ namespace AUModule
                 _AUs.Add(au5);
             }
 
-            /*AU6 Cheek Raiser //Ralph
+            /*AU6 Cheek Raiser (Left) //Ralph
             *
             * LeftCheekBone = 58 59 60
             * RightCheekBone = 64 65 66
             */
 
             {
-                _nameAU.Add("Cheek Raiser");
-                _numAU.Add("AU6");
-                List<double> au6 = new List<double>();
+                _nameAU.Add("Cheek Raiser (Left)");
+                _numAU.Add("AU6L");
+                List<double> au6L = new List<double>();
 
-                double avgRestHeight = restLeftCheekBone.Y + restRightCheekBone.Y / 2;
+                double avgRestHeight = restLeftCheekBone.Y;
 
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
                     List<double> currRow = _rowsCSV[i];
 
                     Vector3D LeftCheekBone = new Vector3D(currRow[58 - 4], currRow[59 - 4], currRow[60 - 4]);
-                    Vector3D RightCheekBone = new Vector3D(currRow[64 - 4], currRow[65 - 4], currRow[66 - 4]);
-
-                    double avgHeight = LeftCheekBone.Y + RightCheekBone.Y / 2;
+                    
+                    double avgHeight = LeftCheekBone.Y;
 
                     //Console.WriteLine(i+": "+MouthStretchDistance);
 
                     double output = avgHeight - avgRestHeight;
 
-                    au6.Add(output > 0 ? output : 0);
+                    au6L.Add(output > 0 ? output : 0);
 
                     //Console.WriteLine(output);
 
                 }
 
-                _AUs.Add(au6);
+                _AUs.Add(au6L);
             }
-            
+
+            /*AU6 Cheek Raiser (Right) //Ralph
+            *
+            * LeftCheekBone = 58 59 60
+            * RightCheekBone = 64 65 66
+            */
+
+            {
+                _nameAU.Add("Cheek Raiser (Right)");
+                _numAU.Add("AU6R");
+                List<double> au6R = new List<double>();
+
+                double avgRestHeight = restRightCheekBone.Y;
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D RightCheekBone = new Vector3D(currRow[64 - 4], currRow[65 - 4], currRow[66 - 4]);
+
+                    double avgHeight = RightCheekBone.Y;
+
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
+
+                    double output = avgHeight - avgRestHeight;
+
+                    au6R.Add(output > 0 ? output : 0);
+
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au6R);
+            }
 
 
             /*
