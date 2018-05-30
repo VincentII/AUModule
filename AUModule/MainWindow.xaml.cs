@@ -37,10 +37,12 @@ namespace AUModule
 
         private Boolean _printDebugs = false;
 
-        private Boolean _isLoad = false;
+        private String[] _listName;
         
 
         private List<String> _outputList;
+
+
 
         private List<double> _restRow;
         private int _restThreshold = 10;
@@ -65,14 +67,21 @@ namespace AUModule
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "CSV (*.csv)|*.csv|All files (*.*)|*.*";
+
+            openFileDialog.Multiselect=true;
+
+            
+
             if (openFileDialog.ShowDialog() == true)
                 Box_File.Text = (openFileDialog.FileName);
 
+            _listName = openFileDialog.FileNames;
 
-        
         }
 
-        private void Load_Click(object sender, RoutedEventArgs e)
+
+        
+        private void PreLoad(String file)
         {
             _rotationW = new List<double>();
             _rotationX = new List<double>();
@@ -81,7 +90,7 @@ namespace AUModule
             _timeStamps = new List<String>();
             _annotations = new List<String>();
 
-            using (var reader = new StreamReader(Box_File.Text))
+            using (var reader = new StreamReader(file))
             {
                 reader.ReadLine();
                 reader.ReadLine();
@@ -113,29 +122,59 @@ namespace AUModule
                 }
             }
 
-               
+
 
             string[] text = Box_File.Text.Split('\\');
-            lbl_Loaded.Content = "LOADED: "+ text[text.Length-1];
-            _isLoad = true;
-
+            lbl_Loaded.Content = "LOADED: " + text[text.Length - 1];
+            
             InitRest();
             RecordAUs();
         }
 
-
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            if (!_isLoad)
-                return;
+            Boolean output = false;
+            List<int> failed = new List<int>();
+
+            if (_listName.Count() >= 1)
+                output = true;
+
+            MessageBox.Show("LOL"+ output.ToString());
+
+            for (int i = 0; i < _listName.Count(); i++)
+            {
+                PreLoad(_listName[i]);
+                Boolean temp = WriteFile(_listName[i]);
+
+                if (output && temp)
+                    output = true;
+                else { 
+                    output = false;
+                    failed.Add(i);
+                }
+            }
+
+            if (output)
+                MessageBox.Show("Complete: Files Saved");
+            else
+            {
+                MessageBox.Show("File/s Failed");
+                for (int i = 0; i < failed.Count(); i++)
+                    MessageBox.Show("A file Failed: "+failed[i]);
+            }
+                
+        }
+
+        private Boolean WriteFile(String file)
+        {
             CSVWriter csvWriter = new CSVWriter();
             _outputList = new List<string>();
 
-            string[] text = Box_File.Text.Split('\\');
+            string[] text = file.Split('\\');
 
-            Console.WriteLine(Box_File.Text + " " + text[text.Length - 1].Split('.')[0]);
-            
-            csvWriter.Start(Box_File.Text,text[text.Length - 1].Split('.')[0]);
+            Console.WriteLine(file + " " + text[text.Length - 1].Split('.')[0]);
+
+            csvWriter.Start(file, text[text.Length - 1].Split('.')[0]);
 
             for (int rowIndex = 0; rowIndex < _rowsCSV.Count(); rowIndex++)
             {
@@ -143,21 +182,21 @@ namespace AUModule
                 Vector3D head = new Vector3D(_rowsCSV[rowIndex][0], _rowsCSV[rowIndex][1], _rowsCSV[rowIndex][2]);
 
                 List<double> auRow = new List<double>();
-                for (int i = 0; i < _nameAU.Count; i++) {
+                for (int i = 0; i < _nameAU.Count; i++)
+                {
                     if (rowIndex < _AUs[i].Count)
                         auRow.Add(_AUs[i][rowIndex]);
                     else
                         auRow.Add(-99999);
-                
-                }
-                    
-                _outputList.Add(csvWriter.UpdatePoints(auRow, _nameAU, _numAU,_annotations[rowIndex], v4, head, _timeStamps[rowIndex]));
-            }
 
-            if(csvWriter.Stop(_outputList))
-            MessageBox.Show("Complete: File Saved");
+                }
+
+                _outputList.Add(csvWriter.UpdatePoints(auRow, _nameAU, _numAU, _annotations[rowIndex], v4, head, _timeStamps[rowIndex]));
+            }
+            if (csvWriter.Stop(_outputList))
+                return true;
             else
-                MessageBox.Show("Save Failed");
+                return false;
         }
 
         private void InitRest()
@@ -887,9 +926,9 @@ namespace AUModule
 
                     //Console.WriteLine(i+": "+MouthStretchDistance);
 
-                    double output = Math.Abs(restDistance - MouthStretchDistance);
+                    double output = MouthStretchDistance - restDistance;
 
-                    au27.Add(output);
+                    au27.Add(output > 0 ? output : 0);
 
                     //Console.WriteLine(output);
 

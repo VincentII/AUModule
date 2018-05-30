@@ -4,16 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="AU Module" Height="124.1" Width="536.333">
+        Title="AU Module" Height="139.895" Width="448.335">
 
-    <Grid Height="85" VerticalAlignment="Top">
+    <Grid Height="85" VerticalAlignment="Top" Margin="0,0,2,0">
         <Label Content="File:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <TextBox Name="Box_File" HorizontalAlignment="Left" Height="23" Margin="46,13,0,0" TextWrapping="Wrap" Text="Click DIR" VerticalAlignment="Top" Width="342"/>
 
-        <Button Name="Btn_Load" Content="Load" HorizontalAlignment="Left" Margin="441,16,0,0" VerticalAlignment="Top" Width="75" Click="Load_Click"/>
-
         <Button Content="Dir" HorizontalAlignment="Left" Margin="393,16,0,0" VerticalAlignment="Top" Width="43" Click="Dir_Click"/>
-        <Button Content="Save as AUs" HorizontalAlignment="Left" Margin="393,50,0,0" VerticalAlignment="Top" Width="123" Click="Save_Click"/>
+        <Button Content="Save as AUs" HorizontalAlignment="Left" Margin="304,52,0,0" VerticalAlignment="Top" Width="123" Click="Save_Click"/>
         <Label Content="Not Loaded" Name="lbl_Loaded" HorizontalAlignment="Left" Margin="46,67,0,-8" VerticalAlignment="Top"/>
     </Grid>
 
