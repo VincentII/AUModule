@@ -1135,35 +1135,62 @@ namespace AUModule
             */
 
             /*
-            * AU34 Cheek Puff Left //Ralph
+            * AU33 Cheek Blow //Ralph
             */
-            /*
             {
-                _nameAU.Add("Cheek Puff (Left)");
-                _numAU.Add("AU34L");
-                List<double> au34 = new List<double>();
+                _nameAU.Add("Cheek Blow");
+                _numAU.Add("AU33");
+                List<double> au33 = new List<double>();
+
+                double avgRestZDistance = (restMouthLowerlipMidTop.Z + restMouthLowerlipMidBottom.Z + restMouthUpperlipMidBottom.Z + restMouthUpperlipMidTop.Z) / 4;
+                double restMouthDistance = Distance3D(restMouthLeftCorner, restMouthRightCorner);
 
                 for (int i = 0; i < _rowsCSV.Count; i++)
                 {
                     List<double> currRow = _rowsCSV[i];
 
                     Vector3D leftCheekCenter = new Vector3D(currRow[55 - 4], currRow[56 - 4], currRow[57 - 4]);
+                    Vector3D rightCheekCenter = new Vector3D(currRow[91 - 4], currRow[92 - 4], currRow[93 - 4]);
+                    Vector3D MouthLowerlipMidBottom = new Vector3D(currRow[10 - 4], currRow[11 - 4], currRow[12 - 4]);
+                    Vector3D MouthLowerlipMidTop = new Vector3D(currRow[13 - 4], currRow[14 - 4], currRow[15 - 4]);
+                    Vector3D MouthUpperlipMidTop = new Vector3D(currRow[22 - 4], currRow[23 - 4], currRow[24 - 4]);
+                    Vector3D MouthUpperlipMidBottom = new Vector3D(currRow[94 - 4], currRow[95 - 4], currRow[96 - 4]);
+
+                    Vector3D MouthLeftCorner = new Vector3D(currRow[31 - 4], currRow[32 - 4], currRow[33 - 4]);
+                    Vector3D MouthRightCorner = new Vector3D(currRow[67 - 4], currRow[68 - 4], currRow[69 - 4]);
+
+                    double MouthDistance = Distance3D(MouthLeftCorner, MouthRightCorner);
+
+                    double avgZDistance = (MouthLowerlipMidTop.Z + MouthLowerlipMidBottom.Z + MouthUpperlipMidBottom.Z + MouthUpperlipMidTop.Z) / 4;
+
+                    double outputDistance = (restMouthDistance - MouthDistance) > 0 ? (restMouthDistance - MouthDistance) : 0;
+
+                    double outputAvgZDistance = (avgRestZDistance - avgZDistance) > 0 ? (avgRestZDistance - avgZDistance) : 0;
+
+                    double outputLips = (outputAvgZDistance + outputDistance) / 2;
 
                     //Console.WriteLine(i+": "+MouthStretchDistance);
 
-                    double outputX = leftCheekCenter.X - restLeftCheekCenter.X;
-                    double outputZ = leftCheekCenter.Z - restLeftCheekCenter.Z;
+                    double outputXL = leftCheekCenter.X - restLeftCheekCenter.X;
+                    double outputZL = leftCheekCenter.Z - restLeftCheekCenter.Z;
 
-                    double output = outputX + outputZ / 2;
+                    double outputL = outputXL + outputZL / 2;
 
-                    au34.Add(output < 0 ? -output : 0);
+                    double outputXR = restRightCheekCenter.X - rightCheekCenter.X;
+                    double outputZR = rightCheekCenter.Z - restRightCheekCenter.Z;
+
+                    double outputR = outputXR + outputZR / 2;
+
+                    double output = -outputL -outputR + outputLips / 3;
+
+                    au33.Add(output > 0 ? output : 0);
+                    //au33.Add(output);
                     //Console.WriteLine(output);
 
                 }
 
-                _AUs.Add(au34);
+                _AUs.Add(au33);
             }
-            */
 
             /*
             * AU34 Cheek Puff Left //Ralph
