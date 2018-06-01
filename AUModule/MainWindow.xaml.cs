@@ -1155,9 +1155,7 @@ namespace AUModule
 
                     double output = outputX + outputZ / 2;
 
-                    double threshold = 0.003;
-                    //au34.Add(-output < threshold ? 0 : -output*2);
-                    au34.Add(-output);
+                    au34.Add(output < 0 ? -output : 0);
                     //Console.WriteLine(output);
 
                 }
@@ -1184,10 +1182,8 @@ namespace AUModule
                     double outputZ = rightCheekCenter.Z - restRightCheekCenter.Z;
 
                     double output = outputX + outputZ / 2;
-
-                    double threshold = 0.003;
-                    //au34.Add(output < threshold ? 0 : output * 2);
-                    au34.Add(-output);
+                    
+                    au34.Add(output < 0 ? -output : 0);
                     //Console.WriteLine(output);
 
                 }
