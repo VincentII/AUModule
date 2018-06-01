@@ -1137,6 +1137,37 @@ namespace AUModule
             /*
             * AU34 Cheek Puff Left //Ralph
             */
+            /*
+            {
+                _nameAU.Add("Cheek Puff (Left)");
+                _numAU.Add("AU34L");
+                List<double> au34 = new List<double>();
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D leftCheekCenter = new Vector3D(currRow[55 - 4], currRow[56 - 4], currRow[57 - 4]);
+
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
+
+                    double outputX = leftCheekCenter.X - restLeftCheekCenter.X;
+                    double outputZ = leftCheekCenter.Z - restLeftCheekCenter.Z;
+
+                    double output = outputX + outputZ / 2;
+
+                    au34.Add(output < 0 ? -output : 0);
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au34);
+            }
+            */
+
+            /*
+            * AU34 Cheek Puff Left //Ralph
+            */
             {
                 _nameAU.Add("Cheek Puff (Left)");
                 _numAU.Add("AU34L");
