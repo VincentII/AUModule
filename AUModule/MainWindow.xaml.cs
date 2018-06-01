@@ -877,7 +877,7 @@ namespace AUModule
 
             /*
              *  AU16 Lower Lip Depressor //Vincent
-             *  TES
+             *  
              */
             {
                 _nameAU.Add("Lower Lip Depressor");
@@ -1194,6 +1194,68 @@ namespace AUModule
 
                 _AUs.Add(au34);
             }
+
+            /*
+           * AU35 Cheek Suck (Left)
+           */
+            {
+                _nameAU.Add("Cheek Suck (Left)");
+                _numAU.Add("AU35L");
+                List<double> au35 = new List<double>();
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D leftCheekCenter = new Vector3D(currRow[55 - 4], currRow[56 - 4], currRow[57 - 4]);
+
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
+
+                    double outputX = leftCheekCenter.X - restLeftCheekCenter.X;
+                    double outputZ = leftCheekCenter.Z - restLeftCheekCenter.Z;
+
+                    double output = outputX + outputZ / 2;
+
+               
+                    //au34.Add(-output < threshold ? 0 : -output*2);
+                    au35.Add(output > 0 ? output : 0);
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au35);
+            }
+
+            /*
+            * AU35 Cheek Suck Right 
+            */
+            {
+                _nameAU.Add("Cheek Suck (Right)");
+                _numAU.Add("AU35R");
+                List<double> au35 = new List<double>();
+
+                for (int i = 0; i < _rowsCSV.Count; i++)
+                {
+                    List<double> currRow = _rowsCSV[i];
+
+                    Vector3D rightCheekCenter = new Vector3D(currRow[91 - 4], currRow[92 - 4], currRow[93 - 4]);
+                    //Console.WriteLine(i+": "+MouthStretchDistance);
+
+                    double outputX = restRightCheekCenter.X - rightCheekCenter.X;
+                    double outputZ = rightCheekCenter.Z - restRightCheekCenter.Z;
+
+                    double output = outputX + outputZ / 2;
+
+                    //au34.Add(output < threshold ? 0 : output * 2);
+                    au35.Add(output>0?output:0);
+                    //Console.WriteLine(output);
+
+                }
+
+                _AUs.Add(au35);
+            }
+
+
 
             /*
             * AU38 Nostril Dilator //Ralph
