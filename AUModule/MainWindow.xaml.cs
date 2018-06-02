@@ -138,8 +138,7 @@ namespace AUModule
 
             if (_listName.Count() >= 1)
                 output = true;
-
-            MessageBox.Show("LOL"+ output.ToString());
+            
 
             for (int i = 0; i < _listName.Count(); i++)
             {
